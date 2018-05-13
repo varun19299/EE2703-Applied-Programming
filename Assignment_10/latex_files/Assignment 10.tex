@@ -1,0 +1,2329 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Assignment 10}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    \begin{center}
+\emph{EE2703: Applied Programming} \\
+\emph{Author: Varun Sundar, EE16B068} \\
+\end{center}
+
+\section{Abstract}\label{abstract}
+
+In this assignment we consider the fourier spectra of non-periodic
+signals, which is done by taking their corresponding Discrete Fourier
+Transform.
+
+In the process of doing so, we understand the need for windowing in case
+of non-periodic functions. This is followed by a windowed fourier
+analysis for the case of a chirped signal.
+
+\section{Introduction}\label{introduction}
+
+Previously for the case of periodic discrete series, we had taken the
+following approach:
+
+\begin{itemize}
+\tightlist
+\item
+  Sample the signal so that \(f_{Nyquist}\) is met, and so that
+  \(\Delta f\) is small enough.
+\item
+  Generate the frequency axis from \(−f_{max}/2\) to \(+ f_{max}/2\),
+  taking care to drop the last term.
+\item
+  Ensure that the signal starts at t=0+ and ends at t=N−
+\item
+  Use 2k samples (or more).
+\item
+  Obtain the DFT.
+\item
+  Rotate the samples so that they go from f = − fmax/2 to f =
+  +fmax/2−∆f. This is done with either \texttt{fftshift} or
+  \texttt{ifftshift}.
+\item
+  Plot the magnitude and phase of the spectrum.
+\item
+  Usually we would plot the magnitude in dB and the phase in degrees and
+  the frequency axis would be logarithmic. This is to capture polynomial
+  decay of the spectrum.
+\end{itemize}
+
+In this assignment we consider both non-periodic signals as well as
+signals which are not periodic in the range of consideration (but may be
+periodic otherwise).
+
+This produces a discontinuity in the signal DFT reproduces, simply
+because,
+
+\[\tilde{x}[n]\] is not exactly
+
+\[
+\begin{cases}
+x[n],  & \text{if $0<=n<N$} \\
+0, & \text{otherwise}
+\end{cases}
+\]
+
+This therefore produces a Gibbs phenomena, which in the fourier domain
+is a ramp with slope \(-20dB / decade\).
+
+\section{Assignment Questions}\label{assignment-questions}
+
+\subsection{Question 1}\label{question-1}
+
+\subsubsection{Working with Non-Periodic
+Signals}\label{working-with-non-periodic-signals}
+
+Consider \(\sin(\sqrt{2}t)\). Obtained over \(0\) to \(2\pi\) with
+\(64\) samples, this function looks as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{scipy} \PY{k}{as} \PY{n+nn}{sp}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{display}\PY{p}{,} \PY{n}{Math}\PY{p}{,} \PY{n}{Latex}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k}{def} \PY{n+nf}{initialise\PYZus{}notebook}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{style}\PY{o}{.}\PY{n}{use}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ggplot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.family}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{serif}\PY{l+s+s1}{\PYZsq{}}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.serif}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ubuntu}\PY{l+s+s1}{\PYZsq{}}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.monospace}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ubuntu Mono}\PY{l+s+s1}{\PYZsq{}}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{10}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes.labelsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{10}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes.labelweight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bold}\PY{l+s+s1}{\PYZsq{}}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes.titlesize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{10}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xtick.labelsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{8}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ytick.labelsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{8}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{legend.fontsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{10}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.titlesize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{12}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{10}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.dpi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{150}
+            
+        \PY{n}{initialise\PYZus{}notebook}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n}{dt}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{;}\PY{n}{fmax}\PY{o}{=}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{dt}
+        \PY{n}{y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{n}{t}\PY{p}{)}
+        
+        \PY{n}{y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} the sample corresponding to \PYZhy{}tmax should be set zero}
+        \PY{n}{y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{n}{y}\PY{p}{)} \PY{c+c1}{\PYZsh{} make y start with y(t=0)}
+        \PY{n}{Y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fft}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{64.0}
+        \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{fmax}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{fmax}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{)}\PY{p}{;}\PY{n}{w}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+        
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} First plot}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}y\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Time domain of \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sin}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{left(}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sqrt}\PY{l+s+si}{\PYZob{}2\PYZcb{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{right)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Second plot}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}|Y|\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Spectrum of \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sin}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{left(}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sqrt}\PY{l+s+si}{\PYZob{}2\PYZcb{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{right)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Third plot}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{angle}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Phase of \PYZdl{}Y\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{omega\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fig10\PYZhy{}1.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The magnitude is off: * We expected two peaks, instead there is gradual
+decaying magnitude.
+
+\begin{itemize}
+\tightlist
+\item
+  The phase is correct, considering that the continuous fourier
+  transform of an odd signal is imaginary. In the case of a DFT,
+\end{itemize}
+
+let,
+
+\begin{array} {ll}
+ y[0]= 0, \qquad ... \qquad , sin(0) \\
+ y[i]=-y[N-i] ,\qquad ... \qquad , i=1,2,...N/2-1\\
+ y[\frac{N}{2}]=sin(t_{N/2}),\qquad ... \qquad , sin(-t_{max})
+\end{array}
+
+then the DFT gives,
+
+\[
+\begin{array}{ll}
+Y[k]=\sum_{n=0}^{N-1}y[n]exp(\frac{2\pi j}{N}kn)\\
+ =\sum_{n=0}^{N/2-1}y[n](exp(\frac{2\pi j}{N}kn)-exp(\frac{2\pi j}{N}-kn)) + y[N/2]exp(\pi kj) \\
+ = \sum_{n=0}^{N-1}-2jy[n]sin(\frac{2\pi j}{N}kn) + y[N/2](-1)^{k}\\
+\end{array}
+\]
+
+We plot the function for several time periods.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{t1}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{)}\PY{p}{;}\PY{n}{t1}\PY{o}{=}\PY{n}{t1}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n}{t2}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{)}\PY{p}{;}\PY{n}{t2}\PY{o}{=}\PY{n}{t2}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n}{t3}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{)}\PY{p}{;}\PY{n}{t3}\PY{o}{=}\PY{n}{t3}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{c+c1}{\PYZsh{} y=sin(sqrt(2)*t)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t1}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{n}{t1}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t2}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{n}{t2}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t3}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{n}{t3}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}y\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}t\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sin}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{left(}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sqrt}\PY{l+s+si}{\PYZob{}2\PYZcb{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{right)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fig10\PYZhy{}2.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The blue line connects the points whose DFT we took. The red lines show
+the continuation of the function. Quite clearly, even though
+\(sin (\sqrt{2}t)\) is a periodic function, the portion between \(−\pi\)
+and \(\pi\) is not the part that can be replicated to generate the
+function.
+
+Now to see which function is reproduced by DFT, we replicate just the
+blue points. And that is shown below:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{t1}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{)}\PY{p}{;}\PY{n}{t1}\PY{o}{=}\PY{n}{t1}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n}{t2}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{)}\PY{p}{;}\PY{n}{t2}\PY{o}{=}\PY{n}{t2}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n}{t3}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{)}\PY{p}{;}\PY{n}{t3}\PY{o}{=}\PY{n}{t3}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n}{y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{n}{t1}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t1}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t2}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t3}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}y\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}t\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sin}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{left(}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sqrt}\PY{l+s+si}{\PYZob{}2\PYZcb{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{right)\PYZdl{} with \PYZdl{}t\PYZdl{} wrapping every \PYZdl{}2}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{pi\PYZdl{} }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fig10\PYZhy{}3.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Thus, there is a Gibbs phenomena due to the discontinuity. Note that,
+
+The Fourier transform of the box function: \[f(t) =
+\begin{cases}
+1,  & \text{if $|t|<t_o$} \\
+0, & \text{otherwise}
+\end{cases}\] is given by
+\[F(\omega) = 2\frac{sin(\omega t_o)}{\omega}\]
+
+The spectrum of the box function decays very slowly, as
+\(\frac{2}{\omega}\).\\
+Now our function is an odd function with a big jump.
+
+So let us consider the periodic ramp:
+
+\[f (t) = t, −\pi< t < \pi\]
+
+Then the fourier series of this ramp is:
+\[f(t)=2(\frac{sin t}{1}-\frac{sin 2t}{2}+\frac{sin 3t}{3} -\dots) \]
+
+Again the coefficients decay very slowly.\\
+The DFT is just like the fourier series, except that both time and
+frequency are samples.\\
+So, if the time samples are like a ramp, the frequency samples will
+decay as \(\frac{1}{\omega}\).
+
+Let us verify this for the ramp itself:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n}{dt}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{;}\PY{n}{fmax}\PY{o}{=}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{dt}
+        \PY{n}{y}\PY{o}{=}\PY{n}{t}
+        \PY{n}{y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} the sample corresponding to \PYZhy{}tmax should be set zeroo}
+        \PY{n}{y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{n}{y}\PY{p}{)} \PY{c+c1}{\PYZsh{} make y start with y(t=0)}
+        \PY{n}{Y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fft}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{64.0}
+        \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{fmax}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{fmax}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{)}\PY{p}{;}\PY{n}{w}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Plotting}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{semilogx}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{w}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{20}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{10}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}|Y|\PYZdl{} (dB)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Spectrum of a digital ramp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{omega\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fig10\PYZhy{}4.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Clearly the spectrum decays as 20 dB per decade, which corresponds to
+\({1/ω}\). The big jumps at \(n\pi\) force this slowly decaying
+spectrum, which is why we don't see the expected spikes for the spectrum
+of \(sin(\sqrt{2}t)\) .
+
+Windowing offers a way out here - the goal being to attenuate the ramp
+caused by Gibbs phenonmena.
+
+\subsubsection{Windowing}\label{windowing}
+
+Consider:
+
+\[g(n) = f (n)w(n)\]
+
+where, \(w(n)\) is the windowing function.
+
+The new spectrum is:
+
+\[G_k = \sum_{n=0}^{N-1} F_nW_{k−n} \]
+
+Suppose \(f[n]\) is a sinusoid. Then \(F[k]\) has two spikes.\\
+But the two spikes are now smeared out by \(W[k]\). So we expect to get
+broader peaks.
+
+But what this also does is to suppress the jump at the edge of the
+window. The window we will use is called the Hamming window:
+
+\[ w[n]=
+\begin{cases}
+0.54+0.46cos(\frac{2\pi n}{N-1}),  & \text{if $|n|<\frac{N-1}{2}$} \\
+0, & \text{otherwise}
+\end{cases}\]
+
+Let us look at our time sequence for \(sin(\sqrt{2}t)\) now . . .
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{n}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{)}
+        \PY{n}{wnd}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{l+m+mf}{0.54}\PY{o}{+}\PY{l+m+mf}{0.46}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{n}\PY{o}{/}\PY{l+m+mi}{63}\PY{p}{)}\PY{p}{)}
+        
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{wnd}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}y\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hamming Window Time domain of \PYZdl{}w[n]\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{t1}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{)}\PY{p}{;}\PY{n}{t1}\PY{o}{=}\PY{n}{t1}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n}{t2}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{)}\PY{p}{;}\PY{n}{t2}\PY{o}{=}\PY{n}{t2}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n}{t3}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{)}\PY{p}{;}\PY{n}{t3}\PY{o}{=}\PY{n}{t3}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n}{n}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{)}
+        \PY{n}{wnd}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{l+m+mf}{0.54}\PY{o}{+}\PY{l+m+mf}{0.46}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{n}\PY{o}{/}\PY{l+m+mi}{63}\PY{p}{)}\PY{p}{)}
+        \PY{n}{y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{n}{t1}\PY{p}{)}\PY{o}{*}\PY{n}{wnd}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t1}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t2}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t3}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}y\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}t\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sin}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{left(}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sqrt}\PY{l+s+si}{\PYZob{}2\PYZcb{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{right)}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{times w(t)\PYZdl{} with \PYZdl{}t\PYZdl{} wrapping every \PYZdl{}2}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{pi\PYZdl{} }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fig10\PYZhy{}5.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The jump is still there, but it is much reduced. There is a little bit
+of magic in keeping some of the jump - it gives us an extra \(10 db\) of
+suppression.
+
+Now let us take the DFT of this sequence and see what we get:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n}{dt}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{;}\PY{n}{fmax}\PY{o}{=}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{dt}
+        \PY{n}{y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{n}{t}\PY{p}{)}
+        
+        \PY{n}{n}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{)}
+        \PY{n}{wnd}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{l+m+mf}{0.54}\PY{o}{+}\PY{l+m+mf}{0.46}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{n}\PY{o}{/}\PY{l+m+mi}{63}\PY{p}{)}\PY{p}{)}
+        \PY{n}{y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{n}{t}\PY{p}{)}\PY{o}{*}\PY{n}{wnd}
+        
+        \PY{n}{y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} the sample corresponding to \PYZhy{}tmax should be set zero}
+        \PY{n}{y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{n}{y}\PY{p}{)} \PY{c+c1}{\PYZsh{} make y start with y(t=0)}
+        \PY{n}{Y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fft}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{64.0}
+        \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{fmax}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{fmax}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{)}\PY{p}{;}\PY{n}{w}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Figures}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Plot 1}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}|Y|\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Spectrum of \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sin}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{left(}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sqrt}\PY{l+s+si}{\PYZob{}2\PYZcb{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{right)}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{times w(t)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Plot 2}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{angle}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Phase of \PYZdl{}Y\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{omega\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fig10\PYZhy{}6.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}   
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Compare to our first plot and you can see that the magnitude is greatly
+improved.
+
+We still have a peak that is two samples wide. But that is because 2
+lies between 1 and 2, which are the two fourier components available.
+
+If we use four times the number of points we should get better results.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{257}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{dt}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{;}\PY{n}{fmax}\PY{o}{=}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{dt}
+         \PY{n}{y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{n}{t}\PY{p}{)}
+         
+         \PY{n}{n}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{256}\PY{p}{)}
+         \PY{n}{wnd}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{l+m+mf}{0.54}\PY{o}{+}\PY{l+m+mf}{0.46}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{n}\PY{o}{/}\PY{l+m+mi}{256}\PY{p}{)}\PY{p}{)}
+         \PY{n}{y}\PY{o}{*}\PY{o}{=}\PY{n}{wnd}
+         
+         \PY{n}{y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} the sample corresponding to \PYZhy{}tmax should be set zero}
+         \PY{n}{y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{n}{y}\PY{p}{)} \PY{c+c1}{\PYZsh{} make y start with y(t=0)}
+         \PY{n}{Y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fft}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{256.0}
+         \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{fmax}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{fmax}\PY{p}{,}\PY{l+m+mi}{257}\PY{p}{)}\PY{p}{;}\PY{n}{w}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Figures}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Plot 1}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}|Y|\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Spectrum of \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sin}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{left(}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sqrt}\PY{l+s+si}{\PYZob{}2\PYZcb{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{right)}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{times w(t)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Plot 2}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{angle}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Phase of \PYZdl{}Y\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{omega\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fig10\PYZhy{}6.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The resolution is better. However, we donot recover a single peak since
+the windowing function has caused a frequency spread (owing to
+convolution).
+
+So by multiplying with \(w(n)\), we got rid of the \(1/ f\) decay.
+
+But the delta function is now replaced by the shape of the DFT of
+\(w[n]\).
+
+That gives us a factor of two broadening over the peak when there is no
+window, which is why we still see a peak whose width is two samples.
+
+Note that it is not because \(\sqrt{2}\) is between 1.25 and 1.5.
+
+To verify, let's try \(sin(1.25n)\). But this gives a broad peak as
+well. That is because of \(w[n]\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{257}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{dt}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{;}\PY{n}{fmax}\PY{o}{=}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{dt}
+         \PY{n}{y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{l+m+mf}{1.25}\PY{o}{*}\PY{n}{t}\PY{p}{)}
+         
+         \PY{n}{n}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{256}\PY{p}{)}
+         \PY{n}{wnd}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{l+m+mf}{0.54}\PY{o}{+}\PY{l+m+mf}{0.46}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{n}\PY{o}{/}\PY{l+m+mi}{256}\PY{p}{)}\PY{p}{)}
+         \PY{n}{y}\PY{o}{*}\PY{o}{=}\PY{n}{wnd}
+         
+         \PY{n}{y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} the sample corresponding to \PYZhy{}tmax should be set zero}
+         \PY{n}{y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{n}{y}\PY{p}{)} \PY{c+c1}{\PYZsh{} make y start with y(t=0)}
+         \PY{n}{Y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fft}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{256.0}
+         \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{fmax}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{fmax}\PY{p}{,}\PY{l+m+mi}{257}\PY{p}{)}\PY{p}{;}\PY{n}{w}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Figures}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Plot 1}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}|Y|\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Spectrum of \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{sin}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{left(1.25t}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{right)}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{times w(t)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Plot 2}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{ii}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{w}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{angle}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Phase of \PYZdl{}Y\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{omega\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fig10\PYZhy{}6.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Question 2}\label{question-2}
+
+Consider the function \(cos^3(\omega_o t)\).
+
+We obtain its spectrum for \(\omega_0=0.86\) with and without a Hamming
+window.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{class} \PY{n+nc}{DFT\PYZus{}assgn}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{pass}
+             \PY{k}{def} \PY{n+nf}{plot\PYZus{}fft}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{title}\PY{p}{,}\PY{n}{samples}\PY{o}{=}\PY{l+m+mi}{512}\PY{p}{,}\PY{n}{sup}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{,}\PY{n}{freq\PYZus{}max}\PY{o}{=}\PY{l+m+mi}{64}\PY{p}{,}\PY{n}{x\PYZus{}lim}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{,}\PY{n}{y\PYZus{}freq\PYZus{}lim}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{verbose}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}\PY{n}{window}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}\PY{n}{funky}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}\PY{n}{return\PYZus{}val}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} y is the array DFT is to be performed on}
+                 \PY{k}{if} \PY{n}{window}\PY{p}{:}
+                     \PY{n}{wnd}\PY{o}{=}\PY{n}{window}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                     \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{o}{*}\PY{n}{wnd}
+                     
+                 \PY{n}{y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{0}
+                 \PY{n}{Y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fft}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{samples}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{funky}\PY{p}{:}
+                     \PY{n}{Y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fft}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{samples}\PY{p}{)}
+                 \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{freq\PYZus{}max}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{freq\PYZus{}max}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{samples}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{;}\PY{n}{w}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         
+                 \PY{c+c1}{\PYZsh{} Figure 1}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{n}{x\PYZus{}lim}\PY{p}{,}\PY{n}{x\PYZus{}lim}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}|Y|\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{title}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         
+                 \PY{c+c1}{\PYZsh{} Figure 2}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}plt.plot(w,np.angle(Y),\PYZsq{}ro\PYZsq{},lw=2)}
+                 \PY{n}{ii}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{n}{sup}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{verbose}\PY{p}{:}
+                     \PY{n}{display}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{w}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{angle}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{go}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{n}{x\PYZus{}lim}\PY{p}{,}\PY{n}{x\PYZus{}lim}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{n}{y\PYZus{}freq\PYZus{}lim}\PY{p}{,}\PY{n}{y\PYZus{}freq\PYZus{}lim}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Phase of \PYZdl{}Y\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{omega\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+                 
+                 \PY{k}{if} \PY{n}{return\PYZus{}val}\PY{p}{:}
+                     \PY{k}{return} \PY{p}{(}\PY{n}{Y}\PY{p}{,}\PY{n}{w}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{a}\PY{o}{=}\PY{n}{DFT\PYZus{}assgn}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{omega}\PY{o}{=}\PY{l+m+mf}{0.86}
+         
+         \PY{c+c1}{\PYZsh{}time}
+         \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{257}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{dt}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{;}\PY{n}{fmax}\PY{o}{=}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{dt}
+         
+         \PY{c+c1}{\PYZsh{}y}
+         \PY{n}{y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{omega}\PY{o}{*}\PY{n}{t}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}
+         
+         \PY{c+c1}{\PYZsh{} title}
+         \PY{n}{title}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Spectrum of \PYZdl{}cos\PYZca{}3}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{left(0.86t}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{right)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}
+         
+         \PY{c+c1}{\PYZsh{}Hamming window}
+         \PY{n}{n}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{256}\PY{p}{)}
+         \PY{n}{wnd}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{l+m+mf}{0.54}\PY{o}{+}\PY{l+m+mf}{0.46}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{n}\PY{o}{/}\PY{l+m+mi}{256}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{a}\PY{o}{.}\PY{n}{plot\PYZus{}fft}\PY{p}{(}\PY{n}{y}\PY{p}{,}\PY{n}{title}\PY{p}{,}\PY{n}{samples}\PY{o}{=}\PY{l+m+mi}{256}\PY{p}{,}\PY{n}{sup}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{,}\PYZbs{}
+                   \PY{n}{freq\PYZus{}max}\PY{o}{=}\PY{n}{fmax}\PY{p}{,}\PY{n}{x\PYZus{}lim}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}\PYZbs{}
+                    \PY{n}{y\PYZus{}freq\PYZus{}lim}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}\PYZbs{}
+                    \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}\PY{n}{window}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}\PY{n}{funky}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{return\PYZus{}val}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{omega}\PY{o}{=}\PY{l+m+mf}{0.86}
+         
+         \PY{c+c1}{\PYZsh{}time}
+         \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{257}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{dt}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{;}\PY{n}{fmax}\PY{o}{=}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{dt}
+         
+         \PY{c+c1}{\PYZsh{}y}
+         \PY{n}{y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{omega}\PY{o}{*}\PY{n}{t}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}
+         
+         \PY{c+c1}{\PYZsh{} title}
+         \PY{n}{title}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Spectrum of \PYZdl{}cos\PYZca{}3}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{left(0.86t}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{right)}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{times w(t)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}
+         
+         \PY{c+c1}{\PYZsh{}Hamming window}
+         \PY{n}{n}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{256}\PY{p}{)}
+         \PY{n}{wnd}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{l+m+mf}{0.54}\PY{o}{+}\PY{l+m+mf}{0.46}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{n}\PY{o}{/}\PY{l+m+mi}{256}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{a}\PY{o}{.}\PY{n}{plot\PYZus{}fft}\PY{p}{(}\PY{n}{y}\PY{p}{,}\PY{n}{title}\PY{p}{,}\PY{n}{samples}\PY{o}{=}\PY{l+m+mi}{256}\PY{p}{,}\PY{n}{sup}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{,}\PYZbs{}
+                   \PY{n}{freq\PYZus{}max}\PY{o}{=}\PY{n}{fmax}\PY{p}{,}\PY{n}{x\PYZus{}lim}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}\PYZbs{}
+                    \PY{n}{y\PYZus{}freq\PYZus{}lim}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}\PYZbs{}
+                    \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}\PY{n}{window}\PY{o}{=}\PY{p}{(}\PY{n}{wnd}\PY{p}{,}\PY{p}{)}\PY{p}{,}\PY{n}{funky}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{return\PYZus{}val}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Question 3}\label{question-3}
+
+We take a 128 element vector known to contain
+\(cos (\omega_o t + \delta )\) for arbitrary \(\delta\) and
+\(0.5<\omega_o <1.5\). The values of t go from \(−\pi\) to \(\pi\).
+
+We have to extract the digital spectrum of the signal and find the two
+peaks at \(\pm\omega_0\), and estimate \(\omega_o\) and \(\delta\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{omega}\PY{o}{=}\PY{l+m+mf}{0.87}
+         \PY{n}{delta}\PY{o}{=}\PY{l+m+mf}{0.45}
+         
+         \PY{c+c1}{\PYZsh{}time}
+         \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{129}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{dt}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{;}\PY{n}{fmax}\PY{o}{=}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{dt}
+         
+         \PY{n}{delta\PYZus{}w} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{fmax}\PY{o}{/}\PY{l+m+mi}{128}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}
+         
+         \PY{c+c1}{\PYZsh{}y}
+         \PY{n}{y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{omega}\PY{o}{*}\PY{n}{t}\PY{o}{+}\PY{n}{delta}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} title}
+         \PY{n}{title}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Spectrum of \PYZdl{}cos}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{left(0.86t}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{right)}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{times w(t)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}
+         
+         \PY{c+c1}{\PYZsh{}Hamming window}
+         \PY{n}{n}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{128}\PY{p}{)}
+         \PY{n}{wnd}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{l+m+mf}{0.54}\PY{o}{+}\PY{l+m+mf}{0.46}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{n}\PY{o}{/}\PY{l+m+mi}{128}\PY{p}{)}\PY{p}{)}
+         
+         \PY{p}{(}\PY{n}{Y}\PY{p}{,}\PY{n}{w}\PY{p}{)}\PY{o}{=}\PY{n}{a}\PY{o}{.}\PY{n}{plot\PYZus{}fft}\PY{p}{(}\PY{n}{y}\PY{p}{,}\PY{n}{title}\PY{p}{,}\PY{n}{samples}\PY{o}{=}\PY{l+m+mi}{128}\PY{p}{,}\PY{n}{sup}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{,}\PYZbs{}
+                   \PY{n}{freq\PYZus{}max}\PY{o}{=}\PY{n}{fmax}\PY{p}{,}\PY{n}{x\PYZus{}lim}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}\PYZbs{}
+                    \PY{n}{y\PYZus{}freq\PYZus{}lim}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}\PYZbs{}
+                    \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}\PY{n}{window}\PY{o}{=}\PY{p}{(}\PY{n}{wnd}\PY{p}{,}\PY{p}{)}\PY{p}{,}\PY{n}{funky}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{return\PYZus{}val}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We estimate omega by performing a Mean average of \(\omega\) over the
+magnitude of \(|Y(j\omega)|\).
+
+For delta we consider a widow on each half of \(\omega\) (split into
+positive and negative values) and extract their mean slope. The
+intuition behind this is that, a circular shift in the time domain of a
+sequence results in the linear phase of the spectra.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k}{def} \PY{n+nf}{estimate\PYZus{}omega}\PY{p}{(}\PY{n}{Y}\PY{p}{,}\PY{n}{w}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    return a mean averaged w}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{ii}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{w}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{)}
+             
+             \PY{k}{return} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{w}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Estimated omega }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{estimate\PYZus{}omega}\PY{p}{(}\PY{n}{Y}\PY{p}{,}\PY{n}{w}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Estimated omega 	 0.869801379303
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k}{def} \PY{n+nf}{estimate\PYZus{}delta}\PY{p}{(}\PY{n}{Y}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n}{window}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{sup}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    We estimate delta by taking a mean over the phase of a window of points at postive angle.}
+         \PY{l+s+sd}{    As a norm, we skip the first two.}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    We notice that a window of 2 works best.}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{ii}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{Y}\PY{o}{\PYZgt{}}\PY{n}{sup}\PY{p}{)}
+             \PY{n}{ii\PYZus{}1}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{logical\PYZus{}and}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{n}{sup}\PY{p}{,} \PY{n}{w}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{np}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{ii\PYZus{}1}\PY{p}{)}
+             \PY{n}{points}\PY{o}{=}\PY{n}{ii\PYZus{}1}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{:}\PY{n}{window}\PY{o}{+}\PY{l+m+mi}{2}\PY{p}{]}
+             \PY{k}{return} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{angle}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{n}{points}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{points}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Estimated delta }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{estimate\PYZus{}delta}\PY{p}{(}\PY{n}{Y}\PY{p}{,}\PY{n}{w}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Estimated delta 	 0.449818040137
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{omega\PYZus{}ll}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mf}{1.5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{delta\PYZus{}ll}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}
+         
+         \PY{n}{MSE\PYZus{}omega}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{omega\PYZus{}ll}\PY{p}{)}\PY{p}{)}
+         \PY{n}{MSE\PYZus{}delta}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{delta\PYZus{}ll}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}time}
+         \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{129}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{dt}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{;}\PY{n}{fmax}\PY{o}{=}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{dt}
+         
+         \PY{n}{delta\PYZus{}w} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{fmax}\PY{o}{/}\PY{l+m+mi}{128}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{omega\PYZus{}ll}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{}y}
+             \PY{n}{omega}\PY{o}{=}\PY{n}{omega\PYZus{}ll}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+             \PY{n}{delta}\PY{o}{=}\PY{n}{delta\PYZus{}ll}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+             \PY{n}{y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{omega}\PY{o}{*}\PY{n}{t}\PY{o}{+}\PY{n}{delta}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} title}
+             \PY{n}{title}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Spectrum of \PYZdl{}cos}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{left(0.86t}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{right)}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{times w(t)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}
+         
+             \PY{c+c1}{\PYZsh{}Hamming window}
+             \PY{n}{n}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{128}\PY{p}{)}
+             \PY{n}{wnd}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{l+m+mf}{0.54}\PY{o}{+}\PY{l+m+mf}{0.46}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{n}\PY{o}{/}\PY{l+m+mi}{128}\PY{p}{)}\PY{p}{)}
+         
+             \PY{p}{(}\PY{n}{Y}\PY{p}{,}\PY{n}{w}\PY{p}{)}\PY{o}{=}\PY{n}{a}\PY{o}{.}\PY{n}{plot\PYZus{}fft}\PY{p}{(}\PY{n}{y}\PY{p}{,}\PY{n}{title}\PY{p}{,}\PY{n}{samples}\PY{o}{=}\PY{l+m+mi}{128}\PY{p}{,}\PY{n}{sup}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{,}\PYZbs{}
+                       \PY{n}{freq\PYZus{}max}\PY{o}{=}\PY{n}{fmax}\PY{p}{,}\PY{n}{x\PYZus{}lim}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}\PYZbs{}
+                        \PY{n}{y\PYZus{}freq\PYZus{}lim}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}\PYZbs{}
+                        \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}\PY{n}{window}\PY{o}{=}\PY{p}{(}\PY{n}{wnd}\PY{p}{,}\PY{p}{)}\PY{p}{,}\PY{n}{funky}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{return\PYZus{}val}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Estimated omega }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{estimate\PYZus{}omega}\PY{p}{(}\PY{n}{Y}\PY{p}{,}\PY{n}{w}\PY{p}{)}\PY{p}{)}
+             \PY{n}{MSE\PYZus{}omega}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{=}\PY{n}{omega}\PY{o}{\PYZhy{}}\PY{n}{estimate\PYZus{}omega}\PY{p}{(}\PY{n}{Y}\PY{p}{,}\PY{n}{w}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Estimated delta }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{estimate\PYZus{}delta}\PY{p}{(}\PY{n}{Y}\PY{p}{,}\PY{n}{w}\PY{p}{)}\PY{p}{)}
+             \PY{n}{MSE\PYZus{}delta}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{=}\PY{n}{delta}\PY{o}{\PYZhy{}}\PY{n}{estimate\PYZus{}delta}\PY{p}{(}\PY{n}{Y}\PY{p}{,}\PY{n}{w}\PY{p}{)}
+             
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MSE error in predicting omega }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{MSE\PYZus{}omega}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MSE error in predicting delta }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{MSE\PYZus{}delta}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Estimated omega 	 0.501858253596
+Estimated delta 	 -1.23212251213e-15
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Estimated omega 	 0.75176838329
+Estimated delta 	 0.124331284565
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Estimated omega 	 1.00162818598
+Estimated delta 	 0.248703827178
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Estimated omega 	 1.25144801302
+Estimated delta 	 0.373156398252
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Estimated omega 	 1.50124024512
+Estimated delta 	 0.497722928933
+MSE error in predicting omega 	 0.00358695206877
+MSE error in predicting delta 	 0.00327279152512
+
+    \end{Verbatim}
+
+    We notice close correlation between the expected values of delta and
+\(\omega\) versus the actual value. We report a MSE error of
+
+\begin{itemize}
+\tightlist
+\item
+  3.3e-3 for \(\omega\)
+\item
+  4e-1 for \(\delta\)
+\end{itemize}
+
+The larger error for delta can be attributed to dependency on a few
+noisy values.
+
+\subsection{Question 4}\label{question-4}
+
+We repeat 3, with added noise in form of random gaussian noise.
+
+This can be generated by randn() in python.
+
+The extent of this noise is 0.1 in amplitude (i.e., 0.1*randn(N), where
+N is the number of samples).
+
+Repeat the problem and find \(\omega_o\) and \(\delta\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{omega}\PY{o}{=}\PY{l+m+mf}{0.87}
+         \PY{n}{delta}\PY{o}{=}\PY{l+m+mf}{0.45}
+         
+         \PY{c+c1}{\PYZsh{}time}
+         \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{129}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{dt}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{;}\PY{n}{fmax}\PY{o}{=}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{dt}
+         
+         \PY{n}{delta\PYZus{}w} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{fmax}\PY{o}{/}\PY{l+m+mi}{128}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}
+         
+         \PY{c+c1}{\PYZsh{}y}
+         \PY{n}{y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{omega}\PY{o}{*}\PY{n}{t}\PY{o}{+}\PY{n}{delta}\PY{p}{)}
+         
+         \PY{n}{y}\PY{o}{+}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{128}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} title}
+         \PY{n}{title}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Spectrum of \PYZdl{}cos}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{left(0.86t}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{right)}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{times w(t)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}
+         
+         \PY{c+c1}{\PYZsh{}Hamming window}
+         \PY{n}{n}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{128}\PY{p}{)}
+         \PY{n}{wnd}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{l+m+mf}{0.54}\PY{o}{+}\PY{l+m+mf}{0.46}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{n}\PY{o}{/}\PY{l+m+mi}{128}\PY{p}{)}\PY{p}{)}
+         
+         \PY{p}{(}\PY{n}{Y}\PY{p}{,}\PY{n}{w}\PY{p}{)}\PY{o}{=}\PY{n}{a}\PY{o}{.}\PY{n}{plot\PYZus{}fft}\PY{p}{(}\PY{n}{y}\PY{p}{,}\PY{n}{title}\PY{p}{,}\PY{n}{samples}\PY{o}{=}\PY{l+m+mi}{128}\PY{p}{,}\PY{n}{sup}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{,}\PYZbs{}
+                   \PY{n}{freq\PYZus{}max}\PY{o}{=}\PY{n}{fmax}\PY{p}{,}\PY{n}{x\PYZus{}lim}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}\PYZbs{}
+                    \PY{n}{y\PYZus{}freq\PYZus{}lim}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}\PYZbs{}
+                    \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}\PY{n}{window}\PY{o}{=}\PY{p}{(}\PY{n}{wnd}\PY{p}{,}\PY{p}{)}\PY{p}{,}\PY{n}{funky}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{return\PYZus{}val}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{display}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Estimated}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{Math}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{omega\PYZus{}o }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}\PY{n}{estimate\PYZus{}omega}\PY{p}{(}\PY{n}{Y}\PY{p}{,}\PY{n}{w}\PY{p}{)}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Estimated}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{Math}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{delta}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}\PY{n}{estimate\PYZus{}delta}\PY{p}{(}\PY{n}{Y}\PY{p}{,}\PY{n}{w}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    \begin{verbatim}
+'Estimated'
+    \end{verbatim}
+
+    
+    $$ \omega_o $$
+
+    
+    
+    \begin{verbatim}
+1.060661225136958
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+'Estimated'
+    \end{verbatim}
+
+    
+    $$\delta$$
+
+    
+    
+    \begin{verbatim}
+0.47140218952622231
+    \end{verbatim}
+
+    
+    In this case itself we notice a large amount of error inflicted on both
+\(\omega\) and \(\delta\).
+
+To further quanitfy this aspect, we re-evaluate the MSE error(s) in this
+case.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{omega\PYZus{}ll}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mf}{1.5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{delta\PYZus{}ll}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}
+         
+         \PY{n}{MSE\PYZus{}omega}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{omega\PYZus{}ll}\PY{p}{)}\PY{p}{)}
+         \PY{n}{MSE\PYZus{}delta}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{delta\PYZus{}ll}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}time}
+         \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{129}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{dt}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{;}\PY{n}{fmax}\PY{o}{=}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{dt}
+         
+         \PY{n}{delta\PYZus{}w} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{fmax}\PY{o}{/}\PY{l+m+mi}{128}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{omega\PYZus{}ll}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{}y}
+             \PY{n}{omega}\PY{o}{=}\PY{n}{omega\PYZus{}ll}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+             \PY{n}{delta}\PY{o}{=}\PY{n}{delta\PYZus{}ll}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+             
+             \PY{c+c1}{\PYZsh{} y with some random noise }
+             \PY{n}{y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{omega}\PY{o}{*}\PY{n}{t}\PY{o}{+}\PY{n}{delta}\PY{p}{)}
+             \PY{n}{y}\PY{o}{+}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{128}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} title}
+             \PY{n}{title}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Spectrum of \PYZdl{}cos}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{left(0.86t}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{right)}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{times w(t)\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}
+         
+             \PY{c+c1}{\PYZsh{}Hamming window}
+             \PY{n}{n}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{128}\PY{p}{)}
+             \PY{n}{wnd}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{l+m+mf}{0.54}\PY{o}{+}\PY{l+m+mf}{0.46}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{n}\PY{o}{/}\PY{l+m+mi}{128}\PY{p}{)}\PY{p}{)}
+         
+             \PY{p}{(}\PY{n}{Y}\PY{p}{,}\PY{n}{w}\PY{p}{)}\PY{o}{=}\PY{n}{a}\PY{o}{.}\PY{n}{plot\PYZus{}fft}\PY{p}{(}\PY{n}{y}\PY{p}{,}\PY{n}{title}\PY{p}{,}\PY{n}{samples}\PY{o}{=}\PY{l+m+mi}{128}\PY{p}{,}\PY{n}{sup}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{,}\PYZbs{}
+                       \PY{n}{freq\PYZus{}max}\PY{o}{=}\PY{n}{fmax}\PY{p}{,}\PY{n}{x\PYZus{}lim}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}\PYZbs{}
+                        \PY{n}{y\PYZus{}freq\PYZus{}lim}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}\PYZbs{}
+                        \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}\PY{n}{window}\PY{o}{=}\PY{p}{(}\PY{n}{wnd}\PY{p}{,}\PY{p}{)}\PY{p}{,}\PY{n}{funky}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{return\PYZus{}val}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+             \PY{n}{display}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Estimated}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{Math}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{omega\PYZus{}o }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}\PY{n}{estimate\PYZus{}omega}\PY{p}{(}\PY{n}{Y}\PY{p}{,}\PY{n}{w}\PY{p}{)}\PY{p}{)}
+             \PY{n}{display}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Estimated}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{Math}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{delta}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}\PY{n}{estimate\PYZus{}delta}\PY{p}{(}\PY{n}{Y}\PY{p}{,}\PY{n}{w}\PY{p}{)}\PY{p}{)}
+             
+         
+             \PY{n}{MSE\PYZus{}omega}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{=}\PY{n}{omega}\PY{o}{\PYZhy{}}\PY{n}{estimate\PYZus{}omega}\PY{p}{(}\PY{n}{Y}\PY{p}{,}\PY{n}{w}\PY{p}{)}
+             \PY{n}{MSE\PYZus{}delta}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{=}\PY{n}{delta}\PY{o}{\PYZhy{}}\PY{n}{estimate\PYZus{}delta}\PY{p}{(}\PY{n}{Y}\PY{p}{,}\PY{n}{w}\PY{p}{)}
+             
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MSE error in predicting omega }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{MSE\PYZus{}omega}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MSE error in predicting delta }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{MSE\PYZus{}delta}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    \begin{verbatim}
+'Estimated'
+    \end{verbatim}
+
+    
+    $$ \omega_o $$
+
+    
+    
+    \begin{verbatim}
+0.68605479765698962
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+'Estimated'
+    \end{verbatim}
+
+    
+    $$\delta$$
+
+    
+    
+    \begin{verbatim}
+-0.85330076674829336
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    \begin{verbatim}
+'Estimated'
+    \end{verbatim}
+
+    
+    $$ \omega_o $$
+
+    
+    
+    \begin{verbatim}
+0.86284133790908535
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+'Estimated'
+    \end{verbatim}
+
+    
+    $$\delta$$
+
+    
+    
+    \begin{verbatim}
+0.10263408915985342
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_15.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    \begin{verbatim}
+'Estimated'
+    \end{verbatim}
+
+    
+    $$ \omega_o $$
+
+    
+    
+    \begin{verbatim}
+1.1314649885507755
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+'Estimated'
+    \end{verbatim}
+
+    
+    $$\delta$$
+
+    
+    
+    \begin{verbatim}
+0.2513192351229917
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_22.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    \begin{verbatim}
+'Estimated'
+    \end{verbatim}
+
+    
+    $$ \omega_o $$
+
+    
+    
+    \begin{verbatim}
+1.3431099739887657
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+'Estimated'
+    \end{verbatim}
+
+    
+    $$\delta$$
+
+    
+    
+    \begin{verbatim}
+0.39298416421454441
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_29.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    \begin{verbatim}
+'Estimated'
+    \end{verbatim}
+
+    
+    $$ \omega_o $$
+
+    
+    
+    \begin{verbatim}
+1.6083554990292883
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+'Estimated'
+    \end{verbatim}
+
+    
+    $$\delta$$
+
+    
+    
+    \begin{verbatim}
+0.94426103804575234
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+MSE error in predicting omega 	 0.29162129537
+MSE error in predicting delta 	 0.962452841946
+
+    \end{Verbatim}
+
+    \subsection{Question 5}\label{question-5}
+
+Chirped Signal
+
+\[ \cos(16( 1.5+ \frac{t}{2\pi})t)  \]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{}time}
+         \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{1025}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{16}\PY{o}{*}\PY{p}{(}\PY{l+m+mf}{1.5}\PY{o}{+}\PY{n}{t}\PY{o}{/}\PY{l+m+mi}{2}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}\PY{o}{*}\PY{n}{t}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}y\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Time domain of \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{cos(16( 1.5+ }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{frac}\PY{l+s+si}{\PYZob{}t\PYZcb{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{2}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{pi\PYZcb{})t)  \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    DFT Spectra without a windowing function:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{}time}
+         \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{1025}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{dt}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{;}\PY{n}{fmax}\PY{o}{=}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{dt}
+         
+         
+         \PY{c+c1}{\PYZsh{} title}
+         \PY{n}{title}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Spectrum of \PYZdl{} }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{cos(16( 1.5+ }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{frac}\PY{l+s+si}{\PYZob{}t\PYZcb{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{2}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{pi\PYZcb{})t)  \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}
+         
+         \PY{c+c1}{\PYZsh{}Hamming window}
+         \PY{n}{n}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1024}\PY{p}{)}
+         \PY{n}{wnd}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{l+m+mf}{0.54}\PY{o}{+}\PY{l+m+mf}{0.46}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{n}\PY{o}{/}\PY{l+m+mi}{1024}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}y}
+         \PY{n}{y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{16}\PY{o}{*}\PY{p}{(}\PY{l+m+mf}{1.5}\PY{o}{+}\PY{n}{t}\PY{o}{/}\PY{l+m+mi}{2}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}\PY{o}{*}\PY{n}{t}\PY{p}{)}
+         
+         \PY{n}{a}\PY{o}{.}\PY{n}{plot\PYZus{}fft}\PY{p}{(}\PY{n}{y}\PY{p}{,}\PY{n}{title}\PY{p}{,}\PY{n}{samples}\PY{o}{=}\PY{l+m+mi}{1024}\PY{p}{,}\PY{n}{sup}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}4}\PY{p}{,}\PYZbs{}
+                   \PY{n}{freq\PYZus{}max}\PY{o}{=}\PY{n}{fmax}\PY{p}{,}\PY{n}{x\PYZus{}lim}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{,}\PYZbs{}
+                    \PY{n}{y\PYZus{}freq\PYZus{}lim}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}\PYZbs{}
+                    \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}\PY{n}{window}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}\PY{n}{funky}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{return\PYZus{}val}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    With a windowing function (Hamming)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{}time}
+         \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{1025}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{dt}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{;}\PY{n}{fmax}\PY{o}{=}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{dt}
+         
+         
+         \PY{c+c1}{\PYZsh{} title}
+         \PY{n}{title}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Spectrum of \PYZdl{} }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{cos(16( 1.5+ }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{frac}\PY{l+s+si}{\PYZob{}t\PYZcb{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{2}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{pi\PYZcb{})t)  \PYZdl{}}\PY{l+s+s2}{\PYZdq{}}
+         
+         \PY{c+c1}{\PYZsh{}Hamming window}
+         \PY{n}{n}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1024}\PY{p}{)}
+         \PY{n}{wnd}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{l+m+mf}{0.54}\PY{o}{+}\PY{l+m+mf}{0.46}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{n}\PY{o}{/}\PY{l+m+mi}{1024}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}y}
+         \PY{n}{y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{16}\PY{o}{*}\PY{p}{(}\PY{l+m+mf}{1.5}\PY{o}{+}\PY{n}{t}\PY{o}{/}\PY{l+m+mi}{2}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}\PY{o}{*}\PY{n}{t}\PY{p}{)}
+         
+         \PY{n}{a}\PY{o}{.}\PY{n}{plot\PYZus{}fft}\PY{p}{(}\PY{n}{y}\PY{p}{,}\PY{n}{title}\PY{p}{,}\PY{n}{samples}\PY{o}{=}\PY{l+m+mi}{1024}\PY{p}{,}\PY{n}{sup}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}4}\PY{p}{,}\PYZbs{}
+                   \PY{n}{freq\PYZus{}max}\PY{o}{=}\PY{n}{fmax}\PY{p}{,}\PY{n}{x\PYZus{}lim}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{,}\PYZbs{}
+                    \PY{n}{y\PYZus{}freq\PYZus{}lim}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}\PYZbs{}
+                    \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}\PY{n}{window}\PY{o}{=}\PY{p}{(}\PY{n}{wnd}\PY{p}{,}\PY{p}{)}\PY{p}{,}\PY{n}{funky}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{return\PYZus{}val}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Question 6}\label{question-6}
+
+For the same chirped signal, break the 1024 vector into pieces that are
+64 samples wide.
+
+Extract the DFT of each and store as a column in a 2D array. Then plot
+the array as a surface plot to show how the frequency of the signal
+varies with time.
+
+This is new. So far we worked either in time or in frequency. But this
+is a ``time- frequency'' plot, where we get localized DFTs and show how
+the spectrum evolves in time.
+
+We do this for both phase and magnitude. Let us explore both surface and
+contour plots.
+
+\subsubsection{Without Windowing}\label{without-windowing}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{1025}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t\PYZus{}arrays}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{)}
+         
+         \PY{n}{Y\PYZus{}mags}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{64}\PY{p}{)}\PY{p}{)}
+         \PY{n}{Y\PYZus{}angles}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{64}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{t\PYZus{}arrays}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             
+             \PY{n}{tt}\PY{o}{=}\PY{n}{t\PYZus{}arrays}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+             
+             \PY{n}{dt}\PY{o}{=}\PY{n}{tt}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{tt}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{;}\PY{n}{fmax}\PY{o}{=}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{dt}
+             \PY{c+c1}{\PYZsh{}Hamming window}
+             \PY{n}{n}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{)}
+             \PY{n}{wnd}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{l+m+mf}{0.54}\PY{o}{+}\PY{l+m+mf}{0.46}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{n}\PY{o}{/}\PY{l+m+mi}{64}\PY{p}{)}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{}y}
+             \PY{n}{y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{16}\PY{o}{*}\PY{p}{(}\PY{l+m+mf}{1.5}\PY{o}{+}\PY{n}{tt}\PY{o}{/}\PY{l+m+mi}{2}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}\PY{o}{*}\PY{n}{tt}\PY{p}{)}
+             \PY{n}{Y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fft}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{)}
+             \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{64}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{;}\PY{n}{w}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+             
+             \PY{n}{Y\PYZus{}mags}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{Y}\PY{p}{)}
+             \PY{n}{Y\PYZus{}angles}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{angle}\PY{p}{(}\PY{n}{Y}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{k+kn}{from} \PY{n+nn}{mpl\PYZus{}toolkits}\PY{n+nn}{.}\PY{n+nn}{mplot3d} \PY{k}{import} \PY{n}{Axes3D}
+         \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{cm}
+\end{Verbatim}
+
+
+    We graph the surface plots of both magintude and phase variations.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{,} \PY{n}{projection}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{1025}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{64}\PY{p}{]}
+         \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{64}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{;}\PY{n}{w}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{p}{)}
+         
+         \PY{n}{surf}\PY{o}{=}\PY{n}{ax}\PY{o}{.}\PY{n}{plot\PYZus{}surface}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{Y\PYZus{}mags}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{coolwarm}\PY{p}{,}\PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{antialiased}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{surf}\PY{p}{,} \PY{n}{shrink}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{aspect}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Frequency}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_44_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{,} \PY{n}{projection}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{1025}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{64}\PY{p}{]}
+         \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{64}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{;}\PY{n}{w}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{p}{)}
+         
+         \PY{n}{surf}\PY{o}{=}\PY{n}{ax}\PY{o}{.}\PY{n}{plot\PYZus{}surface}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{Y\PYZus{}angles}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{coolwarm}\PY{p}{,}\PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{antialiased}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{surf}\PY{p}{,} \PY{n}{shrink}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{aspect}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Frequency}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Contour plots
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{1025}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{64}\PY{p}{]}
+         \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{64}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{;}\PY{n}{w}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{p}{)}
+         
+         
+         \PY{n}{CS}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{Y\PYZus{}mags}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{interpolation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bilinear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{origin}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                        \PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{jet}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Contour plot without windowing of magnitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Frequency}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{CB} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{CS}\PY{p}{,} \PY{n}{shrink}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{n}{extend}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{both}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{l}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{w}\PY{p}{,} \PY{n}{h} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{get\PYZus{}position}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{bounds}
+         \PY{n}{ll}\PY{p}{,} \PY{n}{bb}\PY{p}{,} \PY{n}{ww}\PY{p}{,} \PY{n}{hh} \PY{o}{=} \PY{n}{CB}\PY{o}{.}\PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}position}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{bounds}
+         \PY{n}{CB}\PY{o}{.}\PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}position}\PY{p}{(}\PY{p}{[}\PY{n}{ll}\PY{p}{,} \PY{n}{b} \PY{o}{+} \PY{l+m+mf}{0.1}\PY{o}{*}\PY{n}{h}\PY{p}{,} \PY{n}{ww}\PY{p}{,} \PY{n}{h}\PY{o}{*}\PY{l+m+mf}{0.8}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/contour.py:967: UserWarning: The following kwargs were not used by contour: 'interpolation'
+  s)
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_47_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{w}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{1025}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{64}\PY{p}{]}
+         \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{64}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{;}\PY{n}{w}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{p}{)}
+         
+         \PY{n}{CS}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{Y\PYZus{}angles}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{interpolation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bilinear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{origin}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                        \PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{jet}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Contour plot without windowing of phase}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Frequency}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{CB} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{CS}\PY{p}{,} \PY{n}{shrink}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{n}{extend}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{both}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{l}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{w}\PY{p}{,} \PY{n}{h} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{get\PYZus{}position}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{bounds}
+         \PY{n}{ll}\PY{p}{,} \PY{n}{bb}\PY{p}{,} \PY{n}{ww}\PY{p}{,} \PY{n}{hh} \PY{o}{=} \PY{n}{CB}\PY{o}{.}\PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}position}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{bounds}
+         \PY{n}{CB}\PY{o}{.}\PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}position}\PY{p}{(}\PY{p}{[}\PY{n}{ll}\PY{p}{,} \PY{n}{b} \PY{o}{+} \PY{l+m+mf}{0.1}\PY{o}{*}\PY{n}{h}\PY{p}{,} \PY{n}{ww}\PY{p}{,} \PY{n}{h}\PY{o}{*}\PY{l+m+mf}{0.8}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+()
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/contour.py:967: UserWarning: The following kwargs were not used by contour: 'interpolation'
+  s)
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_48_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{With Windowing}\label{with-windowing}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{1025}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t\PYZus{}arrays}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{)}
+         
+         \PY{n}{Y\PYZus{}mags}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{64}\PY{p}{)}\PY{p}{)}
+         \PY{n}{Y\PYZus{}angles}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{64}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{t\PYZus{}arrays}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             
+             \PY{n}{tt}\PY{o}{=}\PY{n}{t\PYZus{}arrays}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+             
+             \PY{n}{dt}\PY{o}{=}\PY{n}{tt}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{tt}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{;}\PY{n}{fmax}\PY{o}{=}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{dt}
+             \PY{c+c1}{\PYZsh{}Hamming window}
+             \PY{n}{n}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{)}
+             \PY{n}{wnd}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{l+m+mf}{0.54}\PY{o}{+}\PY{l+m+mf}{0.46}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{n}\PY{o}{/}\PY{l+m+mi}{64}\PY{p}{)}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{}y}
+             \PY{n}{y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{16}\PY{o}{*}\PY{p}{(}\PY{l+m+mf}{1.5}\PY{o}{+}\PY{n}{tt}\PY{o}{/}\PY{l+m+mi}{2}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}\PY{o}{*}\PY{n}{tt}\PY{p}{)}
+             \PY{n}{y}\PY{o}{*}\PY{o}{=}\PY{n}{wnd}
+             \PY{n}{Y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fft}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{)}
+             \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{64}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{;}\PY{n}{w}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+             
+             \PY{n}{Y\PYZus{}mags}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{Y}\PY{p}{)}
+             \PY{n}{Y\PYZus{}angles}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{angle}\PY{p}{(}\PY{n}{Y}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{,} \PY{n}{projection}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{1025}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{64}\PY{p}{]}
+         \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{64}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{;}\PY{n}{w}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{p}{)}
+         
+         \PY{n}{surf}\PY{o}{=}\PY{n}{ax}\PY{o}{.}\PY{n}{plot\PYZus{}surface}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{Y\PYZus{}mags}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{coolwarm}\PY{p}{,}\PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{antialiased}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{surf}\PY{p}{,} \PY{n}{shrink}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{aspect}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Frequency}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_51_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{,} \PY{n}{projection}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{1025}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{64}\PY{p}{]}
+         \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{64}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{;}\PY{n}{w}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{p}{)}
+         
+         \PY{n}{surf}\PY{o}{=}\PY{n}{ax}\PY{o}{.}\PY{n}{plot\PYZus{}surface}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{Y\PYZus{}angles}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{coolwarm}\PY{p}{,}\PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{antialiased}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{400}\PY{p}{,}\PY{l+m+mi}{400}\PY{p}{]}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{surf}\PY{p}{,} \PY{n}{shrink}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{aspect}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Frequency}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_52_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{1025}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{64}\PY{p}{]}
+         \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{64}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{;}\PY{n}{w}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{p}{)}
+         
+         
+         \PY{n}{CS}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{Y\PYZus{}mags}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{interpolation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bilinear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{origin}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                        \PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{jet}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Contour plot without windowing of magnitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Frequency}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{CB} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{CS}\PY{p}{,} \PY{n}{shrink}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{n}{extend}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{both}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{l}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{w}\PY{p}{,} \PY{n}{h} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{get\PYZus{}position}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{bounds}
+         \PY{n}{ll}\PY{p}{,} \PY{n}{bb}\PY{p}{,} \PY{n}{ww}\PY{p}{,} \PY{n}{hh} \PY{o}{=} \PY{n}{CB}\PY{o}{.}\PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}position}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{bounds}
+         \PY{n}{CB}\PY{o}{.}\PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}position}\PY{p}{(}\PY{p}{[}\PY{n}{ll}\PY{p}{,} \PY{n}{b} \PY{o}{+} \PY{l+m+mf}{0.1}\PY{o}{*}\PY{n}{h}\PY{p}{,} \PY{n}{ww}\PY{p}{,} \PY{n}{h}\PY{o}{*}\PY{l+m+mf}{0.8}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/contour.py:967: UserWarning: The following kwargs were not used by contour: 'interpolation'
+  s)
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_53_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{w}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{1025}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{64}\PY{p}{]}
+         \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{64}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{;}\PY{n}{w}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{p}{)}
+         
+         \PY{n}{CS}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{Y\PYZus{}angles}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{interpolation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bilinear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{origin}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                        \PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{jet}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Contour plot without windowing of phase}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Frequency}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{CB} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{CS}\PY{p}{,} \PY{n}{shrink}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{n}{extend}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{both}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{l}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{w}\PY{p}{,} \PY{n}{h} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{get\PYZus{}position}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{bounds}
+         \PY{n}{ll}\PY{p}{,} \PY{n}{bb}\PY{p}{,} \PY{n}{ww}\PY{p}{,} \PY{n}{hh} \PY{o}{=} \PY{n}{CB}\PY{o}{.}\PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}position}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{bounds}
+         \PY{n}{CB}\PY{o}{.}\PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}position}\PY{p}{(}\PY{p}{[}\PY{n}{ll}\PY{p}{,} \PY{n}{b} \PY{o}{+} \PY{l+m+mf}{0.1}\PY{o}{*}\PY{n}{h}\PY{p}{,} \PY{n}{ww}\PY{p}{,} \PY{n}{h}\PY{o}{*}\PY{l+m+mf}{0.8}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+()
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/contour.py:967: UserWarning: The following kwargs were not used by contour: 'interpolation'
+  s)
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_54_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We notice that just 16 slices of our 1024 vector might be very sparse.
+Hence, let's slice contiguous slices with a spacing of one., giving
+\(1024-64=980\) slices.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{1025}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t\PYZus{}arrays}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{)}
+         
+         \PY{n}{Y\PYZus{}mags}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1024}\PY{o}{\PYZhy{}}\PY{l+m+mi}{64}\PY{p}{,}\PY{l+m+mi}{64}\PY{p}{)}\PY{p}{)}
+         \PY{n}{Y\PYZus{}angles}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1024}\PY{o}{\PYZhy{}}\PY{l+m+mi}{64}\PY{p}{,}\PY{l+m+mi}{64}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1024}\PY{o}{\PYZhy{}}\PY{l+m+mi}{64}\PY{p}{)}\PY{p}{:}
+             
+             \PY{n}{tt}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{n}{i}\PY{p}{:}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{64}\PY{p}{]}
+             
+             \PY{n}{dt}\PY{o}{=}\PY{n}{tt}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{tt}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{;}\PY{n}{fmax}\PY{o}{=}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{dt}
+             \PY{c+c1}{\PYZsh{}Hamming window}
+             \PY{n}{n}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{)}
+             \PY{n}{wnd}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{l+m+mf}{0.54}\PY{o}{+}\PY{l+m+mf}{0.46}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{n}\PY{o}{/}\PY{l+m+mi}{64}\PY{p}{)}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{}y}
+             \PY{n}{y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{16}\PY{o}{*}\PY{p}{(}\PY{l+m+mf}{1.5}\PY{o}{+}\PY{n}{tt}\PY{o}{/}\PY{l+m+mi}{2}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}\PY{o}{*}\PY{n}{tt}\PY{p}{)}
+             \PY{n}{Y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fft}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{)}
+             \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{64}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{;}\PY{n}{w}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+             
+             \PY{n}{Y\PYZus{}mags}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{Y}\PY{p}{)}
+             \PY{n}{Y\PYZus{}angles}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{angle}\PY{p}{(}\PY{n}{Y}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{,} \PY{n}{projection}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{1025}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{1024}\PY{o}{\PYZhy{}}\PY{l+m+mi}{64}\PY{p}{]}
+         \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{64}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{;}\PY{n}{w}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{p}{)}
+         
+         \PY{n}{surf}\PY{o}{=}\PY{n}{ax}\PY{o}{.}\PY{n}{plot\PYZus{}surface}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{Y\PYZus{}mags}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{coolwarm}\PY{p}{,}\PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{antialiased}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{surf}\PY{p}{,} \PY{n}{shrink}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{aspect}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Frequency}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_57_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{,} \PY{n}{projection}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{1025}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{1024}\PY{o}{\PYZhy{}}\PY{l+m+mi}{64}\PY{p}{]}
+         \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{64}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{;}\PY{n}{w}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{p}{)}
+         
+         \PY{n}{surf}\PY{o}{=}\PY{n}{ax}\PY{o}{.}\PY{n}{plot\PYZus{}surface}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{Y\PYZus{}angles}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{coolwarm}\PY{p}{,}\PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{antialiased}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{400}\PY{p}{,}\PY{l+m+mi}{400}\PY{p}{]}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{surf}\PY{p}{,} \PY{n}{shrink}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{aspect}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Frequency}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_58_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{1025}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{1024}\PY{o}{\PYZhy{}}\PY{l+m+mi}{64}\PY{p}{]}
+         \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{64}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{;}\PY{n}{w}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{p}{)}
+         
+         
+         \PY{n}{CS}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{Y\PYZus{}mags}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{interpolation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bilinear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{origin}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                        \PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{jet}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Contour plot without windowing of magnitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Frequency}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{CB} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{CS}\PY{p}{,} \PY{n}{shrink}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{n}{extend}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{both}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{l}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{w}\PY{p}{,} \PY{n}{h} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{get\PYZus{}position}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{bounds}
+         \PY{n}{ll}\PY{p}{,} \PY{n}{bb}\PY{p}{,} \PY{n}{ww}\PY{p}{,} \PY{n}{hh} \PY{o}{=} \PY{n}{CB}\PY{o}{.}\PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}position}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{bounds}
+         \PY{n}{CB}\PY{o}{.}\PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}position}\PY{p}{(}\PY{p}{[}\PY{n}{ll}\PY{p}{,} \PY{n}{b} \PY{o}{+} \PY{l+m+mf}{0.1}\PY{o}{*}\PY{n}{h}\PY{p}{,} \PY{n}{ww}\PY{p}{,} \PY{n}{h}\PY{o}{*}\PY{l+m+mf}{0.8}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/contour.py:967: UserWarning: The following kwargs were not used by contour: 'interpolation'
+  s)
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_59_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{w}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{1025}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{1024}\PY{o}{\PYZhy{}}\PY{l+m+mi}{64}\PY{p}{]}
+         \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{64}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{;}\PY{n}{w}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{p}{)}
+         
+         \PY{n}{CS}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{Y\PYZus{}angles}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{interpolation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bilinear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{origin}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                        \PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{jet}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Contour plot without windowing of phase}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Frequency}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{CB} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{CS}\PY{p}{,} \PY{n}{shrink}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{n}{extend}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{both}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{l}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{w}\PY{p}{,} \PY{n}{h} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{get\PYZus{}position}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{bounds}
+         \PY{n}{ll}\PY{p}{,} \PY{n}{bb}\PY{p}{,} \PY{n}{ww}\PY{p}{,} \PY{n}{hh} \PY{o}{=} \PY{n}{CB}\PY{o}{.}\PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}position}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{bounds}
+         \PY{n}{CB}\PY{o}{.}\PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}position}\PY{p}{(}\PY{p}{[}\PY{n}{ll}\PY{p}{,} \PY{n}{b} \PY{o}{+} \PY{l+m+mf}{0.1}\PY{o}{*}\PY{n}{h}\PY{p}{,} \PY{n}{ww}\PY{p}{,} \PY{n}{h}\PY{o}{*}\PY{l+m+mf}{0.8}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+()
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/contour.py:967: UserWarning: The following kwargs were not used by contour: 'interpolation'
+  s)
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_60_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{With Windowing}\label{with-windowing}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{1025}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t\PYZus{}arrays}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{)}
+         
+         \PY{n}{Y\PYZus{}mags}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1024}\PY{o}{\PYZhy{}}\PY{l+m+mi}{64}\PY{p}{,}\PY{l+m+mi}{64}\PY{p}{)}\PY{p}{)}
+         \PY{n}{Y\PYZus{}angles}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1024}\PY{o}{\PYZhy{}}\PY{l+m+mi}{64}\PY{p}{,}\PY{l+m+mi}{64}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1024}\PY{o}{\PYZhy{}}\PY{l+m+mi}{64}\PY{p}{)}\PY{p}{:}
+             
+             \PY{n}{tt}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{n}{i}\PY{p}{:}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{64}\PY{p}{]}
+             
+             \PY{n}{dt}\PY{o}{=}\PY{n}{tt}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{tt}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{;}\PY{n}{fmax}\PY{o}{=}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{dt}
+             \PY{c+c1}{\PYZsh{}Hamming window}
+             \PY{n}{n}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{)}
+             \PY{n}{wnd}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{l+m+mf}{0.54}\PY{o}{+}\PY{l+m+mf}{0.46}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{n}\PY{o}{/}\PY{l+m+mi}{64}\PY{p}{)}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{}y}
+             \PY{n}{y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{16}\PY{o}{*}\PY{p}{(}\PY{l+m+mf}{1.5}\PY{o}{+}\PY{n}{tt}\PY{o}{/}\PY{l+m+mi}{2}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}\PY{o}{*}\PY{n}{tt}\PY{p}{)}
+             \PY{n}{y}\PY{o}{*}\PY{o}{=}\PY{n}{wnd}
+             \PY{n}{Y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fft}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{fftshift}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{)}
+             \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{64}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{;}\PY{n}{w}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+             
+             \PY{n}{Y\PYZus{}mags}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{Y}\PY{p}{)}
+             \PY{n}{Y\PYZus{}angles}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{angle}\PY{p}{(}\PY{n}{Y}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{,} \PY{n}{projection}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{1025}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{1024}\PY{o}{\PYZhy{}}\PY{l+m+mi}{64}\PY{p}{]}
+         \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{64}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{;}\PY{n}{w}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{p}{)}
+         
+         \PY{n}{surf}\PY{o}{=}\PY{n}{ax}\PY{o}{.}\PY{n}{plot\PYZus{}surface}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{Y\PYZus{}mags}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{coolwarm}\PY{p}{,}\PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{antialiased}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{surf}\PY{p}{,} \PY{n}{shrink}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{aspect}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Frequency}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_63_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{,} \PY{n}{projection}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{1025}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{1024}\PY{o}{\PYZhy{}}\PY{l+m+mi}{64}\PY{p}{]}
+         \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{64}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{;}\PY{n}{w}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{p}{)}
+         
+         \PY{n}{surf}\PY{o}{=}\PY{n}{ax}\PY{o}{.}\PY{n}{plot\PYZus{}surface}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{Y\PYZus{}angles}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{coolwarm}\PY{p}{,}\PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{antialiased}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{400}\PY{p}{,}\PY{l+m+mi}{400}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Frequency}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{surf}\PY{p}{,} \PY{n}{shrink}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{aspect}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_64_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{1025}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{1024}\PY{o}{\PYZhy{}}\PY{l+m+mi}{64}\PY{p}{]}
+         \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{64}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{;}\PY{n}{w}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{p}{)}
+         
+         
+         \PY{n}{CS}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{Y\PYZus{}mags}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{interpolation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bilinear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{origin}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                        \PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{jet}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Contour plot without windowing of magnitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Frequency}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{CB} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{CS}\PY{p}{,} \PY{n}{shrink}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{n}{extend}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{both}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{l}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{w}\PY{p}{,} \PY{n}{h} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{get\PYZus{}position}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{bounds}
+         \PY{n}{ll}\PY{p}{,} \PY{n}{bb}\PY{p}{,} \PY{n}{ww}\PY{p}{,} \PY{n}{hh} \PY{o}{=} \PY{n}{CB}\PY{o}{.}\PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}position}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{bounds}
+         \PY{n}{CB}\PY{o}{.}\PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}position}\PY{p}{(}\PY{p}{[}\PY{n}{ll}\PY{p}{,} \PY{n}{b} \PY{o}{+} \PY{l+m+mf}{0.1}\PY{o}{*}\PY{n}{h}\PY{p}{,} \PY{n}{ww}\PY{p}{,} \PY{n}{h}\PY{o}{*}\PY{l+m+mf}{0.8}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/contour.py:967: UserWarning: The following kwargs were not used by contour: 'interpolation'
+  s)
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_65_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{w}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{t}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{1025}\PY{p}{)}\PY{p}{;}\PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{o}{=}\PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{1024}\PY{o}{\PYZhy{}}\PY{l+m+mi}{64}\PY{p}{]}
+         \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{fmax}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{l+m+mi}{64}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{;}\PY{n}{w}\PY{o}{=}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{w}\PY{p}{)}
+         
+         \PY{n}{CS}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{Y\PYZus{}angles}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{interpolation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bilinear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{origin}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                        \PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{jet}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Contour plot without windowing of phase}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Frequency}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{CB} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{CS}\PY{p}{,} \PY{n}{shrink}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{n}{extend}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{both}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{l}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{w}\PY{p}{,} \PY{n}{h} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{get\PYZus{}position}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{bounds}
+         \PY{n}{ll}\PY{p}{,} \PY{n}{bb}\PY{p}{,} \PY{n}{ww}\PY{p}{,} \PY{n}{hh} \PY{o}{=} \PY{n}{CB}\PY{o}{.}\PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}position}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{bounds}
+         \PY{n}{CB}\PY{o}{.}\PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}position}\PY{p}{(}\PY{p}{[}\PY{n}{ll}\PY{p}{,} \PY{n}{b} \PY{o}{+} \PY{l+m+mf}{0.1}\PY{o}{*}\PY{n}{h}\PY{p}{,} \PY{n}{ww}\PY{p}{,} \PY{n}{h}\PY{o}{*}\PY{l+m+mf}{0.8}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+()
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/contour.py:967: UserWarning: The following kwargs were not used by contour: 'interpolation'
+  s)
+/Users/Ankivarun/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1316: UserWarning: findfont: Font family ['serif'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_66_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Results and Discussions}\label{results-and-discussions}
+
+In this assignment we have covered the requirement of windowing in the
+case of non-periodic series in DFT's. In particular this is to mitigate
+the effect of Gibbs phenomena owing to the discontinuous nature of the
+series \(\tilde{x}[n]\) realised by a discrete fourier transform.
+
+The last question addresses the time varying spectra for a chirped
+signal, where we plot fourier spectra for different time slices of a
+signal. We noted the case of sparse number of slices and hence took more
+closely spaced slices.
+
+The general properties of a fourier spectra for a chirped signal are
+observable in the time avrying plots , ie..., existence of two peaks
+(slow growth), vanishing of chirp effects in case of a windowed
+transform, and a phase plot that periodically varies with reduced phase
+near maximum values.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

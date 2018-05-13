@@ -1,0 +1,884 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Assignment 4}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{assignment-4}{%
+\section{Assignment 4}\label{assignment-4}}
+
+\emph{EE2703: Applied Programming}
+
+\emph{Author: Varun Sundar, EE16B068}
+
+\hypertarget{conventions}{%
+\paragraph{Conventions}\label{conventions}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  We are using Python 3, GCC for C
+\item
+  Underscore naming vs Camel Case
+\item
+  PEP 25 convention style.
+\end{enumerate}
+
+\hypertarget{abstract}{%
+\section{Abstract}\label{abstract}}
+
+This weeks assignment concerns with the prinicples of least squares
+(\(L_2\) norm) fitting and an examination of its dependence on factors
+including number of points fit (size of dataset), noise of IID
+(independent and identically distributed) measurements, as well as model
+chosen to regress upon. We conduct appropriate observations for the case
+of estimating linear models for the first Bessel function, \(J_1\).
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+Linear regression (least squares fitting) comprises of:
+
+\[ Ax=y\]
+
+where, x is a vector of the model's linear decomposition;
+
+or
+
+\[\vec{x}=\sum_{i=1}^{m}{x_i} ,\] with \(x_i\) being the linear
+decompositions.
+
+\(A_{{m}{n}}\) is a matrix comprisisng of the linear coeffecients of a
+\(x_i\).
+
+and, \(y\) comprises the values measured.
+
+To fit the model, we require that \(A\) is full column rank, and that
+the number of rows of A must be equal or greater than the number of
+columns.
+
+In reality, \(y\) rarely corresponds to the exact ground truth, rather
+it has a pertubation of noise,ie\ldots{}
+
+\[ y^{measured}=y^{actual} + \epsilon \]
+
+We shall notice that increasing the number of measurements can help
+improve the accuracy of the model under the influence of noise.
+
+    \hypertarget{assignment-questions}{%
+\section{Assignment Questions}\label{assignment-questions}}
+
+\hypertarget{part-a}{%
+\subsection{Part a}\label{part-a}}
+
+We shall be fitting the first Bessel function with two linear models.
+
+Note that,
+
+\[ J_{\nu}(x)≈ \sqrt{\frac{2}{\pi x}} cos (x− \nu \frac{\pi}{2} −\frac{\pi}{4}) \]
+
+for large values of \(x\).
+
+Here, scipy's implementation of the Bessel function has been used for
+ground truth values. Our measurments are carried for values of x in
+\((0,20)\), linearly spaced for 41 values.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{special}
+         \PY{n}{J\PYZus{}exact}\PY{o}{=}\PY{n}{scipy}\PY{o}{.}\PY{n}{special}\PY{o}{.}\PY{n}{j1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} Estimated Bessel function}
+         \PY{k}{def} \PY{n+nf}{J}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{v}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} Bessel function of order v}
+             \PY{c+c1}{\PYZsh{} Default 1}
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{/}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{p}{(}\PY{n}{v}\PY{o}{*}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{2}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} Generate a set of 41 values}
+         \PY{c+c1}{\PYZsh{} Modify this for more values}
+         \PY{n}{x}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,}\PY{n}{num}\PY{o}{=}\PY{l+m+mi}{41}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline  
+         
+         \PY{o}{\PYZpc{}}\PY{k}{pylab} inline
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}
+         
+         \PY{n}{figure}\PY{p}{,} \PY{n}{axarr} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{axarr}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{axarr}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Plot of \PYZdl{}J\PYZus{}1(x)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}\PY{n}{fontweight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+         
+         \PY{n}{axarr}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{J\PYZus{}exact}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Neaten up plots}
+         \PY{n}{figure}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Populating the interactive namespace from numpy and matplotlib
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/envs/tf\_python3/lib/python3.6/site-packages/IPython/core/magics/pylab.py:160: UserWarning: pylab import has clobbered these variables: ['figure']
+`\%matplotlib` prevents importing * from pylab and numpy
+  "\textbackslash{}n`\%matplotlib` prevents importing * from pylab and numpy"
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{part-b}{%
+\subsection{Part b}\label{part-b}}
+
+We now generate a list of anchor points, \(\vec{x_o}\), wherein, for
+each \(x_o\) we shall consider subvectors \(x[x>x_o]\) for evaluating
+\(J_1(x)\).
+
+The first model we fit (hereafter refered to as ``model b'') shall be
+
+\[ A\cos(x_i)+B\sin(x_i) ≈ J_1(x_i)\].
+
+We also derive \(\nu\) from the known values of \(A\) and \(B\), by
+comparing it to the form of the approximate model of \(J_{\nu}(x)\)
+(accurate for large x).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} Generate a list of anchor points}
+         \PY{n}{x\PYZus{}o}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mi}{18}\PY{p}{,}\PY{n}{num}\PY{o}{=}\PY{l+m+mf}{17.5}\PY{o}{/}\PY{l+m+mf}{0.5}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/envs/tf\_python3/lib/python3.6/site-packages/ipykernel\_launcher.py:2: DeprecationWarning: object of type <class 'float'> cannot be safely interpreted as an integer.
+  
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k}{def} \PY{n+nf}{extract\PYZus{}x\PYZus{}J}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x\PYZus{}o}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} Extract values of x\PYZgt{} x\PYZus{}o and corresponding J values}
+             \PY{n}{y}\PY{o}{=}\PY{n}{x}\PY{p}{[}\PY{n}{x}\PY{o}{\PYZgt{}}\PY{n}{x\PYZus{}o}\PY{p}{]}
+             \PY{k}{return} \PY{p}{(}\PY{n}{y}\PY{p}{,}\PY{n}{J\PYZus{}exact}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{extract\PYZus{}x\PYZus{}J}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{l+m+mf}{0.6}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} (array([  1. ,   1.5,   2. ,   2.5,   3. ,   3.5,   4. ,   4.5,   5. ,
+                   5.5,   6. ,   6.5,   7. ,   7.5,   8. ,   8.5,   9. ,   9.5,
+                  10. ,  10.5,  11. ,  11.5,  12. ,  12.5,  13. ,  13.5,  14. ,
+                  14.5,  15. ,  15.5,  16. ,  16.5,  17. ,  17.5,  18. ,  18.5,
+                  19. ,  19.5,  20. ]),
+          array([ 0.44005059,  0.55793651,  0.57672481,  0.4970941 ,  0.33905896,
+                  0.13737753, -0.06604333, -0.23106043, -0.32757914, -0.34143822,
+                 -0.27668386, -0.1538413 , -0.00468282,  0.13524843,  0.23463635,
+                  0.27312196,  0.24531179,  0.16126443,  0.04347275, -0.07885001,
+                 -0.1767853 , -0.22837862, -0.2234471 , -0.1654838 , -0.07031805,
+                  0.03804929,  0.13337515,  0.19342946,  0.20510404,  0.16721318,
+                  0.09039718, -0.00576421, -0.09766849, -0.16341997, -0.18799489,
+                 -0.16663364, -0.10570143, -0.02087707,  0.06683312]))
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k}{def} \PY{n+nf}{construct\PYZus{}matrix\PYZus{}model\PYZus{}b}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x\PYZus{}o}\PY{p}{,}\PY{n}{eps}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{}F*A=C}
+             \PY{n}{y}\PY{p}{,}\PY{n}{C}\PY{o}{=}\PY{n}{extract\PYZus{}x\PYZus{}J}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x\PYZus{}o}\PY{p}{)}
+             \PY{n}{F}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+             \PY{n}{F}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+             \PY{n}{F}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+             \PY{n}{C}\PY{o}{+}\PY{o}{=}\PY{n}{eps}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{p}{(}\PY{n}{F}\PY{p}{,}\PY{n}{C}\PY{p}{)}
+         
+         \PY{n}{construct\PYZus{}matrix\PYZus{}model\PYZus{}b}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} (array([[ 0.0707372 ,  0.99749499],
+                 [-0.41614684,  0.90929743],
+                 [-0.80114362,  0.59847214],
+                 [-0.9899925 ,  0.14112001],
+                 [-0.93645669, -0.35078323],
+                 [-0.65364362, -0.7568025 ],
+                 [-0.2107958 , -0.97753012],
+                 [ 0.28366219, -0.95892427],
+                 [ 0.70866977, -0.70554033],
+                 [ 0.96017029, -0.2794155 ],
+                 [ 0.97658763,  0.21511999],
+                 [ 0.75390225,  0.6569866 ],
+                 [ 0.34663532,  0.93799998],
+                 [-0.14550003,  0.98935825],
+                 [-0.6020119 ,  0.79848711],
+                 [-0.91113026,  0.41211849],
+                 [-0.99717216, -0.07515112],
+                 [-0.83907153, -0.54402111],
+                 [-0.47553693, -0.87969576],
+                 [ 0.0044257 , -0.99999021],
+                 [ 0.48330476, -0.87545217],
+                 [ 0.84385396, -0.53657292],
+                 [ 0.99779828, -0.0663219 ],
+                 [ 0.90744678,  0.42016704],
+                 [ 0.59492066,  0.80378443],
+                 [ 0.13673722,  0.99060736],
+                 [-0.35492427,  0.93489506],
+                 [-0.75968791,  0.65028784],
+                 [-0.97845346,  0.20646748],
+                 [-0.95765948, -0.28790332],
+                 [-0.70239706, -0.71178534],
+                 [-0.27516334, -0.96139749],
+                 [ 0.21943996, -0.97562601],
+                 [ 0.66031671, -0.75098725],
+                 [ 0.93952489, -0.34248062],
+                 [ 0.98870462,  0.14987721],
+                 [ 0.79581497,  0.60553987],
+                 [ 0.40808206,  0.91294525]]),
+          array([ 0.55793651,  0.57672481,  0.4970941 ,  0.33905896,  0.13737753,
+                 -0.06604333, -0.23106043, -0.32757914, -0.34143822, -0.27668386,
+                 -0.1538413 , -0.00468282,  0.13524843,  0.23463635,  0.27312196,
+                  0.24531179,  0.16126443,  0.04347275, -0.07885001, -0.1767853 ,
+                 -0.22837862, -0.2234471 , -0.1654838 , -0.07031805,  0.03804929,
+                  0.13337515,  0.19342946,  0.20510404,  0.16721318,  0.09039718,
+                 -0.00576421, -0.09766849, -0.16341997, -0.18799489, -0.16663364,
+                 -0.10570143, -0.02087707,  0.06683312]))
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k}{def} \PY{n+nf}{extract\PYZus{}v\PYZus{}model\PYZus{}b}\PY{p}{(}\PY{n}{A}\PY{p}{,}\PY{n}{B}\PY{p}{)}\PY{p}{:}
+             \PY{n}{z}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arccos}\PY{p}{(}\PY{n}{A}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{A}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{+}\PY{n}{B}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+             \PY{n}{v}\PY{o}{=}\PY{p}{(}\PY{n}{z}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{/}\PY{l+m+mi}{4}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+             \PY{k}{return} \PY{n}{v}
+             
+         \PY{k}{def} \PY{n+nf}{estimate\PYZus{}v\PYZus{}model\PYZus{}b}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x\PYZus{}o}\PY{p}{,}\PY{n}{eps}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+             \PY{n}{F}\PY{p}{,}\PY{n}{C}\PY{o}{=}\PY{n}{construct\PYZus{}matrix\PYZus{}model\PYZus{}b}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x\PYZus{}o}\PY{p}{,}\PY{n}{eps}\PY{p}{)}
+             \PY{n}{A}\PY{p}{,}\PY{n}{B}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{lstsq}\PY{p}{(}\PY{n}{F}\PY{p}{,}\PY{n}{C}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{v}\PY{o}{=}\PY{n}{extract\PYZus{}v\PYZus{}model\PYZus{}b}\PY{p}{(}\PY{n}{A}\PY{p}{,}\PY{n}{B}\PY{p}{)}
+             \PY{k}{return} \PY{p}{(}\PY{n}{v}\PY{p}{,}\PY{n}{A}\PY{p}{,}\PY{n}{B}\PY{p}{)}
+             
+         \PY{p}{[}\PY{n}{estimate\PYZus{}v\PYZus{}model\PYZus{}b}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x\PYZus{}o\PYZus{}i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{x\PYZus{}o\PYZus{}i} \PY{o+ow}{in} \PY{n}{x\PYZus{}o}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} [0.90636384701026018,
+          0.94080483749318089,
+          0.96949237195089255,
+          0.98258390624400815,
+          0.97820571805830425,
+          0.96589586094660196,
+          0.95944024519860316,
+          0.9644614779073134,
+          0.9760154922785651,
+          0.98502943007168864,
+          0.98535445347942874,
+          0.97835729313337694,
+          0.97172192911963784,
+          0.97188287681869723,
+          0.97842278658463155,
+          0.98572496050555181,
+          0.98807266595980492,
+          0.98417802792910802,
+          0.97836542755530298,
+          0.97639332928035005,
+          0.97993735886277644,
+          0.98579713694136917,
+          0.98918236227013667,
+          0.98758198803549924,
+          0.98295392391028491,
+          0.97995991841793018,
+          0.98130983232747471,
+          0.9856377497500376,
+          0.98937617164854941,
+          0.98966426479022673,
+          0.98660434459997304,
+          0.98341310442973018,
+          0.98307698820044565,
+          0.98543378814994287,
+          0.98840871547189124,
+          0.9902678757579414]
+\end{Verbatim}
+            
+    \hypertarget{part-c}{%
+\subsection{Part c}\label{part-c}}
+
+We now repeat the preceeding section with the a new model:
+
+\[ A\frac{\cos(x_i)}{\sqrt{x}}+B\frac{\sin(x_i)}{\sqrt{x}} ≈ J_1(x_i)\].
+
+Model definition for part c, hereafter refered to as ``model c''.
+
+We also compare the fits of the to models. (with respect to ground truth
+values).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{k}{def} \PY{n+nf}{construct\PYZus{}matrix\PYZus{}model\PYZus{}c}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x\PYZus{}o}\PY{p}{,}\PY{n}{eps}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{}F*A=C}
+             \PY{n}{y}\PY{p}{,}\PY{n}{C}\PY{o}{=}\PY{n}{extract\PYZus{}x\PYZus{}J}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x\PYZus{}o}\PY{p}{)}
+             \PY{n}{F}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+             \PY{n}{F}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+             \PY{n}{F}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+             \PY{n}{C}\PY{o}{+}\PY{o}{=}\PY{n}{eps}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{p}{(}\PY{n}{F}\PY{p}{,}\PY{n}{C}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{extract\PYZus{}v\PYZus{}model\PYZus{}c}\PY{p}{(}\PY{n}{A}\PY{p}{,}\PY{n}{B}\PY{p}{)}\PY{p}{:}
+             \PY{n}{z}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arccos}\PY{p}{(}\PY{n}{A}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{A}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{+}\PY{n}{B}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+             \PY{n}{v}\PY{o}{=}\PY{p}{(}\PY{n}{z}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{/}\PY{l+m+mi}{4}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+             \PY{k}{return} \PY{n}{v}
+             
+         \PY{k}{def} \PY{n+nf}{estimate\PYZus{}v\PYZus{}model\PYZus{}c}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x\PYZus{}o}\PY{p}{,}\PY{n}{eps}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+             \PY{n}{F}\PY{p}{,}\PY{n}{C}\PY{o}{=}\PY{n}{construct\PYZus{}matrix\PYZus{}model\PYZus{}c}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x\PYZus{}o}\PY{p}{,}\PY{n}{eps}\PY{p}{)}
+             \PY{n}{A}\PY{p}{,}\PY{n}{B}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{lstsq}\PY{p}{(}\PY{n}{F}\PY{p}{,}\PY{n}{C}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{v}\PY{o}{=}\PY{n}{extract\PYZus{}v\PYZus{}model\PYZus{}c}\PY{p}{(}\PY{n}{A}\PY{p}{,}\PY{n}{B}\PY{p}{)}
+             \PY{k}{return} \PY{p}{(}\PY{n}{v}\PY{p}{,}\PY{n}{A}\PY{p}{,}\PY{n}{B}\PY{p}{)}
+             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{k}{def} \PY{n+nf}{model\PYZus{}b}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{A}\PY{p}{,}\PY{n}{B}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{A}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{+}\PY{n}{B}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+             
+         \PY{k}{def} \PY{n+nf}{model\PYZus{}c}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{A}\PY{p}{,}\PY{n}{B}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{A}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{+}\PY{n}{B}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+             
+         \PY{k}{def} \PY{n+nf}{plot\PYZus{}model}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x\PYZus{}o}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{model\PYZus{}no}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{n}{figure}\PY{p}{,} \PY{n}{axarr} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+             \PY{n}{axarr}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+             \PY{n}{axarr}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Plot of estimated \PYZdl{}J\PYZus{}v(x)\PYZdl{} with model}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{model\PYZus{}no}\PY{p}{)}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}\PY{n}{fontweight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Neaten up plots}
+             \PY{n}{figure}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+             
+             \PY{k}{if} \PY{n}{model\PYZus{}no}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{:}
+                 \PY{n}{A}\PY{p}{,}\PY{n}{B}\PY{o}{=}\PY{n}{estimate\PYZus{}v\PYZus{}model\PYZus{}b}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x\PYZus{}o}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+                 \PY{n}{axarr}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{model\PYZus{}b}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{A}\PY{p}{,}\PY{n}{B}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{axarr}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{J\PYZus{}exact}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model b}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bessel function}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{A}\PY{p}{,}\PY{n}{B}\PY{o}{=}\PY{n}{estimate\PYZus{}v\PYZus{}model\PYZus{}c}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x\PYZus{}o}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+                 \PY{n}{axarr}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{model\PYZus{}c}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{A}\PY{p}{,}\PY{n}{B}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{axarr}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{J\PYZus{}exact}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model b}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bessel function}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+                 
+         \PY{n}{plot\PYZus{}model}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plot\PYZus{}model}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/envs/tf\_python3/lib/python3.6/site-packages/ipykernel\_launcher.py:5: RuntimeWarning: divide by zero encountered in true\_divide
+  """
+/Users/Ankivarun/anaconda3/envs/tf\_python3/lib/python3.6/site-packages/ipykernel\_launcher.py:5: RuntimeWarning: invalid value encountered in true\_divide
+  """
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We notice that among the two models, model ``c'' does a compartitively
+better job of fitting \(J_1(x)\). This can be attributed to the fact
+that the second model more accurately captures the linear coeffecients
+of the approximate Bessel model.
+
+Also note that both models donot fit the curve well for small x, where
+the approximate Bessel model is not valid.
+
+    \hypertarget{part-de}{%
+\subsection{Part d,e}\label{part-de}}
+
+We now write a wrapper function \emph{calcnu} which can call either
+model (``b'' or ``c''), and return the value of \(\nu\) (order of the
+Bessel function) as predicted by each model. In addition to this, the
+amount of random IID noise to be added to the ground truth measurements
+(values of \(J_1(x)\)) may also be specified.
+
+This is carried out for three cases- model b, model c, and model c with
+0.01 random normalised noise. Their respecitve predicted \(\nu\) values
+for each \(x_o\) are returned and plotted.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{k}{def} \PY{n+nf}{calcnu}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x\PYZus{}o}\PY{p}{,}\PY{n}{eps}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{model}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{model}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{estimate\PYZus{}v\PYZus{}model\PYZus{}b}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x\PYZus{}o}\PY{p}{,}\PY{n}{eps}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{estimate\PYZus{}v\PYZus{}model\PYZus{}c}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x\PYZus{}o}\PY{p}{,}\PY{n}{eps}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{series1}\PY{o}{=}\PY{p}{[}\PY{n}{calcnu}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x\PYZus{}o\PYZus{}i}\PY{p}{,}\PY{n}{eps}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{model}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)} \PY{k}{for} \PY{n}{x\PYZus{}o\PYZus{}i} \PY{o+ow}{in} \PY{n}{x\PYZus{}o}\PY{p}{]}
+         \PY{n}{series2}\PY{o}{=}\PY{p}{[}\PY{n}{calcnu}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x\PYZus{}o\PYZus{}i}\PY{p}{,}\PY{n}{eps}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{model}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{x\PYZus{}o\PYZus{}i} \PY{o+ow}{in} \PY{n}{x\PYZus{}o}\PY{p}{]}
+         \PY{n}{series3}\PY{o}{=}\PY{p}{[}\PY{n}{calcnu}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x\PYZus{}o\PYZus{}i}\PY{p}{,}\PY{n}{eps}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{,}\PY{n}{model}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{x\PYZus{}o\PYZus{}i} \PY{o+ow}{in} \PY{n}{x\PYZus{}o}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{figure}\PY{p}{,} \PY{n}{axarr} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{axarr}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{axarr}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Plot of \PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{mu\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}\PY{n}{fontweight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZus{}o\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mf}{0.9}\PY{p}{,}\PY{l+m+mf}{1.05}\PY{p}{)}
+         
+         \PY{n}{axarr}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}o}\PY{p}{,}\PY{n}{series1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{x\PYZus{}o}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{series2}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{x\PYZus{}o}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{series3}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{go}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{epsilon =0\PYZdl{} , model b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{epsilon =0\PYZdl{} , model c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{epsilon =0.01\PYZdl{} , model c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Neaten up plots}
+         \PY{n}{figure}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We observe that owing to the invalidity of the large \(x\) approximation
+of \(J_1(x)\), none of our models show the value of \(\nu\) as 1 for
+small \(x_o\). However, they converge for larger \(x_o\). The effect of
+noise causes errors in the value of \(\nu\) predicted.
+
+    \hypertarget{part-f}{%
+\subsection{Part f}\label{part-f}}
+
+Here,we vary the number of measurements taken. This is represented by
+our evenly spaced vector \(\vec{x}\).
+
+We notice that as the number of measurements increase, the effect of
+noise greatly diminishes. Ofcourse, our model(s) (in particular model c)
+fit well mainly for large x, where the approximation of
+
+\[ J_{\nu}(x)≈ \sqrt{\frac{2}{\pi x}} cos (x− \nu \frac{\pi}{2} −\frac{\pi}{4}) \]
+
+is valid.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{nums}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{41}\PY{p}{,}\PY{l+m+mi}{81}\PY{p}{,}\PY{l+m+mi}{201}\PY{p}{,}\PY{l+m+mi}{1001}\PY{p}{,}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{5}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{num\PYZus{}index} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{nums}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{figure}\PY{p}{,} \PY{n}{axarr} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{figure}\PY{o}{.}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+             \PY{n}{x}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,}\PY{n}{num}\PY{o}{=}\PY{n}{nums}\PY{p}{[}\PY{n}{num\PYZus{}index}\PY{p}{]}\PY{p}{)}
+             \PY{n}{series1}\PY{o}{=}\PY{p}{[}\PY{n}{calcnu}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x\PYZus{}o\PYZus{}i}\PY{p}{,}\PY{n}{eps}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{model}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)} \PY{k}{for} \PY{n}{x\PYZus{}o\PYZus{}i} \PY{o+ow}{in} \PY{n}{x\PYZus{}o}\PY{p}{]}
+             \PY{n}{series2}\PY{o}{=}\PY{p}{[}\PY{n}{calcnu}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x\PYZus{}o\PYZus{}i}\PY{p}{,}\PY{n}{eps}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{model}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{x\PYZus{}o\PYZus{}i} \PY{o+ow}{in} \PY{n}{x\PYZus{}o}\PY{p}{]}
+             \PY{n}{series3}\PY{o}{=}\PY{p}{[}\PY{n}{calcnu}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x\PYZus{}o\PYZus{}i}\PY{p}{,}\PY{n}{eps}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{,}\PY{n}{model}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{x\PYZus{}o\PYZus{}i} \PY{o+ow}{in} \PY{n}{x\PYZus{}o}\PY{p}{]}
+             
+             \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+             \PY{n}{axarr}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Plot of \PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{mu\PYZdl{} for }\PY{l+s+s1}{\PYZsq{}}\PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{nums}\PY{p}{[}\PY{n}{num\PYZus{}index}\PY{p}{]}\PY{p}{)} \PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ mesurements}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}\PY{n}{fontweight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+             \PY{n}{axarr}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}o}\PY{p}{,}\PY{n}{series1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{x\PYZus{}o}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{series2}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{x\PYZus{}o}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{series3}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{go}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{epsilon =0\PYZdl{} , model b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{epsilon =0\PYZdl{} , model c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{epsilon =0.01\PYZdl{} , model c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Neaten up plots}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZus{}o\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mf}{0.9}\PY{p}{,}\PY{l+m+mf}{1.1}\PY{p}{)}
+             \PY{n}{figure}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{part-g}{%
+\section{Part g}\label{part-g}}
+
+Here, we study the effect of the noise on the quality of fit (the effect
+of measurements has been done above). The metric for error is chosen to
+be the value of \(\nu\) returned and its converegence for large \(x_o\).
+
+We notice that as the noise amplitude is increased, quality of fit
+decreases.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{noise\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{l+m+mf}{1e\PYZhy{}5}\PY{p}{,}\PY{l+m+mf}{1e\PYZhy{}4}\PY{p}{,}\PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{,}\PY{l+m+mf}{1e\PYZhy{}2}\PY{p}{,}\PY{l+m+mf}{2e\PYZhy{}2}\PY{p}{,}\PY{l+m+mf}{3e\PYZhy{}2}\PY{p}{]}
+         \PY{n}{figure}\PY{p}{,} \PY{n}{axarr} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{figure}\PY{o}{.}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}
+         \PY{n}{colors}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{go}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ko}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{k}{for} \PY{n}{index} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{noise\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{x}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,}\PY{n}{num}\PY{o}{=}\PY{l+m+mi}{81}\PY{p}{)}
+             \PY{n}{series1}\PY{o}{=}\PY{p}{[}\PY{n}{calcnu}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x\PYZus{}o\PYZus{}i}\PY{p}{,}\PY{n}{eps}\PY{o}{=}\PY{n}{noise\PYZus{}list}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{,}\PY{n}{model}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{x\PYZus{}o\PYZus{}i} \PY{o+ow}{in} \PY{n}{x\PYZus{}o}\PY{p}{]}    
+             \PY{n}{axarr}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}o}\PY{p}{,}\PY{n}{series1}\PY{p}{,}\PY{n}{colors}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{axarr}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Plot of \PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{mu\PYZdl{} for various noise mesurements}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}\PY{n}{fontweight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} 
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{epsilon =1e\PYZhy{}5\PYZdl{} , model c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{epsilon =1e\PYZhy{}4\PYZdl{} , model c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{epsilon =1e\PYZhy{}3\PYZdl{} , model c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{epsilon =1e\PYZhy{}2\PYZdl{} , model c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{epsilon =2e\PYZhy{}2\PYZdl{} , model c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{epsilon =3e\PYZhy{}2\PYZdl{} , model c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Neaten up plots}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZus{}o\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mf}{0.9}\PY{p}{,}\PY{l+m+mf}{1.1}\PY{p}{)}
+         \PY{n}{figure}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{results-and-discussion}{%
+\section{Results and Discussion}\label{results-and-discussion}}
+
+We have examined the usefulness of least squares approximation of a
+function by various models, and noted its particular utility when the
+model closely matches and approximation of a function upto linear terms.
+In addition to this, the effect of pertubation of ground truth
+measurements with the addition of noise has also been obsereved.
+
+It has been noted that for the given approximation of
+
+\[ J_{\nu}(x)≈ \sqrt{\frac{2}{\pi x}} cos (x− \nu \frac{\pi}{2} −\frac{\pi}{4}) \]
+
+the effect of noise is largely augmented for large cutoff \(x_o\), owing
+to a smaller row dataset. Thus,it establishes a tradeoff between the
+value of \(\nu\) we wish to accurately predict as well as the noise
+distortion we are willing to tolerate. Ofcourse, increasing the net
+number of measurements does drastically help lower this tradeoff. To
+conclude, we also briefely examined the effect of noise amplitude on the
+quality of fit obtained. Here, an estimate of the quality was chosen as
+the consistency of the value of \(\nu\) returned. We note that larger
+noise distorts the quality of fit. The same conclusion maybe reached by
+plotting each of these models, albeit without a systematic overlook.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

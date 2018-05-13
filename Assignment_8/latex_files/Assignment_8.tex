@@ -1,0 +1,791 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[10pt,notitlepage,onecolumn,aps,pra]{revtex4-1}
+
+    
+    
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+% We will generate all images so they have a width \maxwidth. This means
+% that they will get their normal width if they fit onto the page, but
+% are scaled down if they would overflow the margins.
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+\else\Gin@nat@width\fi}
+\makeatother
+\let\Oldincludegraphics\includegraphics
+% Set max figure width to be 80% of text width, for now hardcoded.
+\renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+% Ensure that by default, figures have no caption (until we provide a
+% proper Figure object with a Caption API and a way to capture that
+% in the conversion process - todo).
+\usepackage{caption}
+\DeclareCaptionLabelFormat{nolabel}{}
+\captionsetup{labelformat=nolabel}
+
+\usepackage{adjustbox} % Used to constrain images to a maximum size
+\usepackage{xcolor} % Allow colors to be defined
+\usepackage{enumerate} % Needed for markdown enumerations to work
+\usepackage{geometry} % Used to adjust the document margins
+\usepackage{amsmath} % Equations
+\usepackage{amssymb} % Equations
+\usepackage{textcomp} % defines textquotesingle
+% Hack from http://tex.stackexchange.com/a/47451/13684:
+\AtBeginDocument{%
+    \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+}
+\usepackage{upquote} % Upright quotes for verbatim code
+\usepackage{eurosym} % defines \euro
+\usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+\usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+\usepackage{fancyvrb} % verbatim replacement that allows latex
+\usepackage{grffile} % extends the file name processing of package graphics
+                     % to support a larger range
+% The hyperref package gives us a pdf with properly built
+% internal navigation ('pdf bookmarks' for the table of contents,
+% internal cross-reference links, web links for URLs, etc.)
+\usepackage{hyperref}
+\usepackage{booktabs}  % table support for pandoc > 1.12.2
+\usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+\usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                            % normalem makes italics be italics, not underlines
+\usepackage{braket}
+
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \title{Assignment\_8}\author{Michael Goerz}
+
+\date{\today}
+\maketitle
+
+
+    
+    
+
+    
+    \hypertarget{assignment-8}{%
+\section{Assignment 8}\label{assignment-8}}
+
+\emph{EE2703: Applied Programming Author: Varun Sundar, EE16B068}
+
+\hypertarget{abstract}{%
+\section{Abstract}\label{abstract}}
+
+This week's assignment involves the analysis of active filter's using
+laplce transforms. Python's symbolic solving library, sympy, comes off
+as a particularly nifty tool to handle our requirements in solving
+Modified Nodal Analysis (MNA) equations. Besides this the library also
+includes useful classes to handle the simulation and response to inputs.
+
+Coupled with \emph{scipy's signal} module, we are able to analyse both
+Sallen-Key and Raunch filters, two common active filter topologies to
+attain second order filters with just a single operational amplifier.
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+Reference to Horowitz and Hill (Active Filters) :
+\href{https://artofelectronics.net/}{link}
+
+We begin by understanding the usage of sympy in defining, evaluating and
+plotting symbolic equations. Besides this, we also examine the use case
+of matrix equation for MNA solutions. With this, we start analysing the
+case of an active low pass filter.
+
+Conventions: 1. We are using Python 3, GCC for C 2. Underscore naming vs
+Camel Case 3. PEP 25 convention style.
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}216}]:} \PY{k+kn}{import} \PY{n+nn}{sympy}
+          \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{display}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          
+          \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{signal} \PY{k}{as} \PY{n+nn}{sp}
+          
+          \PY{c+c1}{\PYZsh{} Use either}
+          
+          \PY{n}{sympy}\PY{o}{.}\PY{n}{init\PYZus{}session}
+          \PY{c+c1}{\PYZsh{}sympy.init\PYZus{}printing(use\PYZus{}unicode=True)}
+          \PY{n}{sympy}\PY{o}{.}\PY{n}{init\PYZus{}printing}\PY{p}{(}\PY{n}{use\PYZus{}latex}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mathjax}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    Here, we use sympy's lambdify method to plot the Bode Plot of the
+transfer function, \[ H(s) = 1/(s^3+2*s^2+2s+1) \]
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}217}]:} \PY{n}{s}\PY{o}{=}\PY{n}{sympy}\PY{o}{.}\PY{n}{symbols}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{h}\PY{o}{=}\PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{n}{s}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{s}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{s}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{logspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{21}\PY{p}{)}
+          \PY{n}{ss}\PY{o}{=}\PY{l+m+mi}{1}\PY{n}{j}\PY{o}{*}\PY{n}{w}
+          \PY{n}{f}\PY{o}{=}\PY{n}{sympy}\PY{o}{.}\PY{n}{lambdify}\PY{p}{(}\PY{n}{s}\PY{p}{,}\PY{n}{h}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{numpy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{loglog}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{f}\PY{p}{(}\PY{n}{ss}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Assignment_8_files/Assignment_8_3_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We solve for an active low pass filter (Sallen-Key). This particular
+active filter is known for being a single op-amp based low pass filter.
+
+The MNA (Nodal) Equations may be recast as:
+
+\[
+\begin{gather}
+\begin{bmatrix}
+   0& 0& 1& -1/G\\   
+   −\frac{1}{1+s R_2 C_2}& 1& 0& 0&\\
+   0& −G& G& 1&\\
+   -1/R_1-1/R_2-sC_1& 1/R_2& 0& sC_1&
+   \end{bmatrix}
+   *
+   \begin{bmatrix} V_1 \\ V_p \\ V_m\\ V_o \end{bmatrix}
+   =
+   \begin{bmatrix} 0\\ 0\\ 0\\ V_i(s)/R \end{bmatrix}
+\end{gather}
+\]
+
+Note that the lab assignment sheet used,
+
+\[ V_o=G(V_p −V_m) \]
+
+incorrectly, since the op-amp is a large gain device. This should be
+replaced by:
+
+\[ V_o=G(V_p) \] which correctly replaces the intended gain block.
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}218}]:} \PY{k}{def} \PY{n+nf}{lowpass}\PY{p}{(}\PY{n}{R1}\PY{p}{,}\PY{n}{R2}\PY{p}{,}\PY{n}{C1}\PY{p}{,}\PY{n}{C2}\PY{p}{,}\PY{n}{G}\PY{p}{,}\PY{n}{Vi}\PY{p}{)}\PY{p}{:}
+              \PY{n}{s}\PY{o}{=}\PY{n}{sympy}\PY{o}{.}\PY{n}{symbols}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{A}\PY{o}{=}\PY{n}{sympy}\PY{o}{.}\PY{n}{Matrix}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{G}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{n}{s}\PY{o}{*}\PY{n}{R2}\PY{o}{*}\PY{n}{C2}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PYZbs{}
+              \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{n}{G}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{R1}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{R2}\PY{o}{\PYZhy{}}\PY{n}{s}\PY{o}{*}\PY{n}{C1}\PY{p}{,}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{R2}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{s}\PY{o}{*}\PY{n}{C1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+              \PY{n}{b}\PY{o}{=}\PY{n}{sympy}\PY{o}{.}\PY{n}{Matrix}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{Vi}\PY{o}{/}\PY{n}{R1}\PY{p}{]}\PY{p}{)}
+              \PY{n}{V}\PY{o}{=}\PY{n}{A}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{p}{)}\PY{o}{*}\PY{n}{b}
+              \PY{k}{return} \PY{p}{(}\PY{n}{A}\PY{p}{,}\PY{n}{b}\PY{p}{,}\PY{n}{V}\PY{p}{)}
+\end{Verbatim}
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}219}]:} \PY{n}{A}\PY{p}{,}\PY{n}{b}\PY{p}{,}\PY{n}{V}\PY{o}{=}\PY{n}{lowpass}\PY{p}{(}\PY{l+m+mi}{10000}\PY{p}{,}\PY{l+m+mi}{10000}\PY{p}{,}\PY{l+m+mf}{1e\PYZhy{}9}\PY{p}{,}\PY{l+m+mf}{1e\PYZhy{}9}\PY{p}{,}\PY{l+m+mf}{1.586}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+          
+          \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{G=1000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{Vo}\PY{o}{=}\PY{n}{V}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}
+          \PY{c+c1}{\PYZsh{} Computed inverse}
+          \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Computed Inverse}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{display}\PY{p}{(}\PY{n}{Vo}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Simplify existing expression}
+          \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Simplified Expression}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{Vo}\PY{o}{=}\PY{n}{sympy}\PY{o}{.}\PY{n}{simplify}\PY{p}{(}\PY{n}{Vo}\PY{p}{)}
+          \PY{n}{display}\PY{p}{(}\PY{n}{Vo}\PY{p}{)}
+          
+          \PY{n}{s}\PY{o}{=}\PY{n}{sympy}\PY{o}{.}\PY{n}{symbols}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{display}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{Vo}\PY{p}{)}\PY{o}{.}\PY{n}{coeff}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{a}\PY{o}{=}\PY{n}{sympy}\PY{o}{.}\PY{n}{Poly}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{Vo}\PY{p}{,}\PY{n}{s}\PY{p}{)}
+          \PY{n}{display}\PY{p}{(}\PY{n}{a}\PY{o}{.}\PY{n}{all\PYZus{}coeffs}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{logspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{801}\PY{p}{)}
+          \PY{n}{ss}\PY{o}{=}\PY{l+m+mi}{1}\PY{n}{j}\PY{o}{*}\PY{n}{w}
+          \PY{n}{hf}\PY{o}{=}\PY{n}{sympy}\PY{o}{.}\PY{n}{lambdify}\PY{p}{(}\PY{n}{s}\PY{p}{,}\PY{n}{Vo}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{numpy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{v}\PY{o}{=}\PY{n}{hf}\PY{p}{(}\PY{n}{ss}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{loglog}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{v}\PY{p}{)}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+G=1000
+Computed Inverse
+
+    \end{Verbatim}
+
+    $$\frac{0.0001586}{\left(1.0 \cdot 10^{-5} s + 1\right) \left(- 1.0 \cdot 10^{-9} s + \frac{1.586 \cdot 10^{-9} s}{1.0 \cdot 10^{-5} s + 1} - 0.0002 + \frac{0.0001}{1.0 \cdot 10^{-5} s + 1}\right)}$$
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Simplified Expression
+
+    \end{Verbatim}
+
+    $$- \frac{0.0001586}{1.0 \cdot 10^{-14} s^{2} + 1.414 \cdot 10^{-9} s + 0.0001}$$
+
+    
+    $$-8.91551071878941 \cdot 10^{-6}$$
+
+    
+    $$\left [ -6.30517023959647 \cdot 10^{-11}, \quad -8.91551071878941 \cdot 10^{-6}, \quad -0.630517023959647\right ]$$
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Assignment_8_files/Assignment_8_6_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{assignment-questions}{%
+\section{Assignment Questions}\label{assignment-questions}}
+
+\hypertarget{question-1}{%
+\subsection{Question 1}\label{question-1}}
+
+To obtain the step response of the circuit, we do so in the laplace
+domain and then convert it to the time domain.
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}220}]:} \PY{n}{H}\PY{o}{=}\PY{n}{Vo}\PY{o}{*}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{s}
+          \PY{n}{display}\PY{p}{(}\PY{n}{H}\PY{p}{)}
+          \PY{n}{H}\PY{o}{=}\PY{n}{sympy}\PY{o}{.}\PY{n}{simplify}\PY{p}{(}\PY{n}{H}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ Simplified Expression }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{display}\PY{p}{(}\PY{n}{H}\PY{p}{)}
+\end{Verbatim}
+
+    $$- \frac{0.0001586}{s \left(1.0 \cdot 10^{-14} s^{2} + 1.414 \cdot 10^{-9} s + 0.0001\right)}$$
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+ Simplified Expression
+
+    \end{Verbatim}
+
+    $$- \frac{0.0001586}{s \left(1.0 \cdot 10^{-14} s^{2} + 1.414 \cdot 10^{-9} s + 0.0001\right)}$$
+
+    
+    We compute the time-domain response of the active low pass filter.
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}237}]:} \PY{n}{A}\PY{p}{,}\PY{n}{b}\PY{p}{,}\PY{n}{V}\PY{o}{=}\PY{n}{lowpass}\PY{p}{(}\PY{l+m+mi}{10000}\PY{p}{,}\PY{l+m+mi}{10000}\PY{p}{,}\PY{l+m+mf}{1e\PYZhy{}9}\PY{p}{,}\PY{l+m+mf}{1e\PYZhy{}9}\PY{p}{,}\PY{l+m+mf}{1.586}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+          
+          \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{G=1000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{Vo}\PY{o}{=}\PY{n}{V}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}
+          \PY{n}{Vo}\PY{o}{=}\PY{n}{sympy}\PY{o}{.}\PY{n}{simplify}\PY{p}{(}\PY{n}{Vo}\PY{p}{)}
+          \PY{n}{display}\PY{p}{(}\PY{n}{Vo}\PY{p}{)}
+          
+          \PY{n}{s}\PY{p}{,}\PY{n}{t}\PY{o}{=}\PY{n}{sympy}\PY{o}{.}\PY{n}{symbols}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{s t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{t}\PY{o}{=}\PY{n}{sympy}\PY{o}{.}\PY{n}{Symbol}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{positive}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{n}\PY{p}{,}\PY{n}{d} \PY{o}{=} \PY{n}{sympy}\PY{o}{.}\PY{n}{fraction}\PY{p}{(}\PY{n}{Vo}\PY{p}{)}
+          \PY{n}{n\PYZus{}sp}\PY{p}{,}\PY{n}{d\PYZus{}sp}\PY{o}{=}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{sympy}\PY{o}{.}\PY{n}{Poly}\PY{p}{(}\PY{n}{j}\PY{p}{,}\PY{n}{s}\PY{p}{)}\PY{o}{.}\PY{n}{all\PYZus{}coeffs}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n+nb}{float}\PY{p}{)} \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{d}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{n\PYZus{}sp}\PY{p}{,}\PY{n}{d\PYZus{}sp}\PY{p}{)}
+          \PY{n}{ts}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.001}\PY{p}{,}\PY{l+m+mi}{8001}\PY{p}{)}
+          \PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{n}{svec}\PY{o}{=}\PY{n}{sp}\PY{o}{.}\PY{n}{lsim}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{lti}\PY{p}{(}\PY{n}{n\PYZus{}sp}\PY{p}{,}\PY{n}{d\PYZus{}sp}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{ts}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{ts}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Plot the absolute step response}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+G=1000
+
+    \end{Verbatim}
+
+    $$- \frac{0.0001586}{1.0 \cdot 10^{-14} s^{2} + 1.414 \cdot 10^{-9} s + 0.0001}$$
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+[-0.0001586] [  1.00000000e-14   1.41400000e-09   1.00000000e-04]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Assignment_8_files/Assignment_8_10_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{question-2}{%
+\subsection{Question 2}\label{question-2}}
+
+Here, the input is\\
+\$ v\_i(t) = (sin(2000\pi t)+cos (2*10\^{}6 \pi t))u(t)\$ Volts
+
+We need to determine the output voltage \(v_0(t)\).
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}222}]:} \PY{n}{n}\PY{p}{,}\PY{n}{d} \PY{o}{=} \PY{n}{sympy}\PY{o}{.}\PY{n}{fraction}\PY{p}{(}\PY{n}{Vo}\PY{p}{)}
+          \PY{n}{n\PYZus{}sp}\PY{p}{,}\PY{n}{d\PYZus{}sp}\PY{o}{=}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{sympy}\PY{o}{.}\PY{n}{Poly}\PY{p}{(}\PY{n}{j}\PY{p}{,}\PY{n}{s}\PY{p}{)}\PY{o}{.}\PY{n}{all\PYZus{}coeffs}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n+nb}{float}\PY{p}{)} \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{d}\PY{p}{)}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Function to simulate}
+          \PY{n}{ts}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.01}\PY{p}{,}\PY{l+m+mi}{8001}\PY{p}{)}
+          \PY{n}{vi}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{l+m+mi}{2000}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{ts}\PY{p}{)}\PY{o}{+}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{6}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{ts}\PY{p}{)}
+          
+          \PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{n}{svec}\PY{o}{=}\PY{n}{sp}\PY{o}{.}\PY{n}{lsim}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{lti}\PY{p}{(}\PY{n}{n\PYZus{}sp}\PY{p}{,}\PY{n}{d\PYZus{}sp}\PY{p}{)}\PY{p}{,}\PY{n}{vi}\PY{p}{,}\PY{n}{ts}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Plot the lamdified values}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Assignment_8_files/Assignment_8_12_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Given that this is a low pass filter, we expect attenuated sinusoids as
+outputs (which is indeed the case). Also, note that the component due to
+a frequency of \(10^6 Hz\) is nearly attenutated out.
+
+To visualise this, we vary the frequency of the cosine component from
+\(10^3\) to \(10^4\) Hertz.
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}223}]:} \PY{n}{n}\PY{p}{,}\PY{n}{d} \PY{o}{=} \PY{n}{sympy}\PY{o}{.}\PY{n}{fraction}\PY{p}{(}\PY{n}{Vo}\PY{p}{)}
+          \PY{n}{n\PYZus{}sp}\PY{p}{,}\PY{n}{d\PYZus{}sp}\PY{o}{=}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{sympy}\PY{o}{.}\PY{n}{Poly}\PY{p}{(}\PY{n}{j}\PY{p}{,}\PY{n}{s}\PY{p}{)}\PY{o}{.}\PY{n}{all\PYZus{}coeffs}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n+nb}{float}\PY{p}{)} \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{d}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{n}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{]}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{n}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{} Function to simulate}
+              \PY{n}{ts}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.01}\PY{p}{,}\PY{l+m+mi}{8001}\PY{p}{)}
+              \PY{n}{vi}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{l+m+mi}{2000}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{ts}\PY{p}{)}\PY{o}{+}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{ts}\PY{p}{)}
+          
+              \PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{n}{svec}\PY{o}{=}\PY{n}{sp}\PY{o}{.}\PY{n}{lsim}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{lti}\PY{p}{(}\PY{n}{n\PYZus{}sp}\PY{p}{,}\PY{n}{d\PYZus{}sp}\PY{p}{)}\PY{p}{,}\PY{n}{vi}\PY{p}{,}\PY{n}{ts}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} Plot the lamdified values}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{At Frequency of Cosine Component = 10\PYZca{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Assignment_8_files/Assignment_8_14_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Assignment_8_files/Assignment_8_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Assignment_8_files/Assignment_8_14_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Assignment_8_files/Assignment_8_14_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Assignment_8_files/Assignment_8_14_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{question-3}{%
+\subsection{Question 3}\label{question-3}}
+
+We now solve for an active low pass filter (Rauch). This particular
+active filter is known for being a single op-amp based high pass filter.
+
+The MNA (Nodal) Equations may be recast as:
+
+\[
+\begin{gather}
+\begin{bmatrix}
+   s(C_1+C_2) + 1/R_1& 0& -sC_2& -1/R_1\\   
+   0& G& 0 &-1\\
+   -sC_2& 0& 1/R_3 + sC_2& 0&\\
+   0& -G& G& 1&
+   \end{bmatrix}
+   *
+   \begin{bmatrix} V_1 \\ V_p \\ V_m\\ V_o \end{bmatrix}
+   =
+   \begin{bmatrix} sC_1V_i\\ 0\\ 0\\ 0 \end{bmatrix}
+\end{gather}
+\]
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}224}]:} \PY{k}{def} \PY{n+nf}{highpass}\PY{p}{(}\PY{n}{R1}\PY{p}{,}\PY{n}{R2}\PY{p}{,}\PY{n}{C1}\PY{p}{,}\PY{n}{C2}\PY{p}{,}\PY{n}{G}\PY{p}{,}\PY{n}{Vi}\PY{p}{)}\PY{p}{:}
+              \PY{n}{s}\PY{o}{=}\PY{n}{sympy}\PY{o}{.}\PY{n}{symbols}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{A}\PY{o}{=}\PY{n}{sympy}\PY{o}{.}\PY{n}{Matrix}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{n}{s}\PY{o}{*}\PY{p}{(}\PY{n}{C1}\PY{o}{+}\PY{n}{C2}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{R1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{n}{s}\PY{o}{*}\PY{n}{C2}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{R1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{G}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PYZbs{}
+              \PY{p}{[}\PY{o}{\PYZhy{}}\PY{n}{s}\PY{o}{*}\PY{n}{C2}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{R2}\PY{o}{+}\PY{n}{s}\PY{o}{*}\PY{n}{C2}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{n}{G}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+              \PY{n}{b}\PY{o}{=}\PY{n}{sympy}\PY{o}{.}\PY{n}{Matrix}\PY{p}{(}\PY{p}{[}\PY{n}{Vi}\PY{o}{*}\PY{n}{s}\PY{o}{*}\PY{n}{C1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+              \PY{n}{V}\PY{o}{=}\PY{n}{A}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{p}{)}\PY{o}{*}\PY{n}{b}
+              \PY{k}{return} \PY{p}{(}\PY{n}{A}\PY{p}{,}\PY{n}{b}\PY{p}{,}\PY{n}{V}\PY{p}{)}
+\end{Verbatim}
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}225}]:} \PY{n}{A}\PY{p}{,}\PY{n}{b}\PY{p}{,}\PY{n}{V}\PY{o}{=}\PY{n}{highpass}\PY{p}{(}\PY{l+m+mi}{10000}\PY{p}{,}\PY{l+m+mi}{10000}\PY{p}{,}\PY{l+m+mf}{1e\PYZhy{}9}\PY{p}{,}\PY{l+m+mf}{1e\PYZhy{}9}\PY{p}{,}\PY{l+m+mf}{1.586}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+          
+          \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{G=1000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{Vo}\PY{o}{=}\PY{n}{V}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Vo (transfer function)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{display}\PY{p}{(}\PY{n}{Vo}\PY{p}{)}
+          \PY{n}{Vo}\PY{o}{=}\PY{n}{sympy}\PY{o}{.}\PY{n}{simplify}\PY{p}{(}\PY{n}{Vo}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Vo (transfer function) Simplified}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{display}\PY{p}{(}\PY{n}{Vo}\PY{p}{)}
+          \PY{n}{w}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{logspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{801}\PY{p}{)}
+          \PY{n}{ss}\PY{o}{=}\PY{l+m+mi}{1}\PY{n}{j}\PY{o}{*}\PY{n}{w}
+          \PY{n}{hf}\PY{o}{=}\PY{n}{sympy}\PY{o}{.}\PY{n}{lambdify}\PY{p}{(}\PY{n}{s}\PY{p}{,}\PY{n}{Vo}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{numpy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{v}\PY{o}{=}\PY{n}{hf}\PY{p}{(}\PY{n}{ss}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{loglog}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{v}\PY{p}{)}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+G=1000
+Vo (transfer function)
+
+    \end{Verbatim}
+
+    $$- \frac{1.586 \cdot 10^{-18} s^{2}}{1.0 \cdot 10^{-18} s^{2} + 1.586 \cdot 10^{-13} s - \left(1.0 \cdot 10^{-9} s + 0.0001\right) \left(2.0 \cdot 10^{-9} s + 0.0001\right)}$$
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Vo (transfer function) Simplified
+
+    \end{Verbatim}
+
+    $$\frac{1.586 \cdot 10^{-18} s^{2}}{1.0 \cdot 10^{-18} s^{2} + 1.41400000000001 \cdot 10^{-13} s + 1.0 \cdot 10^{-8}}$$
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Assignment_8_files/Assignment_8_17_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Clearly, the Rauch filter acts as a second order high pass filter.
+
+\hypertarget{question-4}{%
+\subsection{Question 4}\label{question-4}}
+
+We now obtain the response of the circuit to a damped sinusoid.
+
+Let us start with a damping coefficient of \(0.01 s^{-1}\), and a
+frequency of \(10^{3} Hertz\), and sweep the frequency.
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}226}]:} \PY{n}{n}\PY{p}{,}\PY{n}{d} \PY{o}{=} \PY{n}{sympy}\PY{o}{.}\PY{n}{fraction}\PY{p}{(}\PY{n}{Vo}\PY{p}{)}
+          \PY{n}{n\PYZus{}sp}\PY{p}{,}\PY{n}{d\PYZus{}sp}\PY{o}{=}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{sympy}\PY{o}{.}\PY{n}{Poly}\PY{p}{(}\PY{n}{j}\PY{p}{,}\PY{n}{s}\PY{p}{)}\PY{o}{.}\PY{n}{all\PYZus{}coeffs}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n+nb}{float}\PY{p}{)} \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{d}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{n}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{]}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{n}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{} Function to simulate}
+              \PY{n}{ts}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.15}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{8001}\PY{p}{)}
+              \PY{n}{vi}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.05}\PY{o}{*}\PY{n}{ts}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{n}{i}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{ts}\PY{p}{)}
+          
+              \PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{n}{svec}\PY{o}{=}\PY{n}{sp}\PY{o}{.}\PY{n}{lsim}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{lti}\PY{p}{(}\PY{n}{n\PYZus{}sp}\PY{p}{,}\PY{n}{d\PYZus{}sp}\PY{p}{)}\PY{p}{,}\PY{n}{vi}\PY{p}{,}\PY{n}{ts}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{At Frequency of Sine Component = 10\PYZca{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} Plot the lamdified values}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Assignment_8_files/Assignment_8_19_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Assignment_8_files/Assignment_8_19_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Assignment_8_files/Assignment_8_19_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Assignment_8_files/Assignment_8_19_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Assignment_8_files/Assignment_8_19_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Note that for brevity, we have changed the time-axis as the frequency
+keeps increasing. More importantly, notice that the gain of the circuit
+increases with frequency, a characteristic of high pass filters.
+
+\hypertarget{question-5}{%
+\subsection{Question 5}\label{question-5}}
+
+We now obtain the response of the circuit to a unit step function.
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}227}]:} \PY{n}{s}\PY{p}{,}\PY{n}{t}\PY{o}{=}\PY{n}{sympy}\PY{o}{.}\PY{n}{symbols}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{s t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{t}\PY{o}{=}\PY{n}{sympy}\PY{o}{.}\PY{n}{Symbol}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{positive}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{n}\PY{p}{,}\PY{n}{d} \PY{o}{=} \PY{n}{sympy}\PY{o}{.}\PY{n}{fraction}\PY{p}{(}\PY{n}{Vo}\PY{p}{)}
+          \PY{n}{n\PYZus{}sp}\PY{p}{,}\PY{n}{d\PYZus{}sp}\PY{o}{=}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{sympy}\PY{o}{.}\PY{n}{Poly}\PY{p}{(}\PY{n}{j}\PY{p}{,}\PY{n}{s}\PY{p}{)}\PY{o}{.}\PY{n}{all\PYZus{}coeffs}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n+nb}{float}\PY{p}{)} \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{d}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{n\PYZus{}sp}\PY{p}{,}\PY{n}{d\PYZus{}sp}\PY{p}{)}
+          \PY{n}{ts}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.001}\PY{p}{,}\PY{l+m+mi}{8001}\PY{p}{)}
+          \PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{n}{svec}\PY{o}{=}\PY{n}{sp}\PY{o}{.}\PY{n}{lsim}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{lti}\PY{p}{(}\PY{n}{n\PYZus{}sp}\PY{p}{,}\PY{n}{d\PYZus{}sp}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{ts}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{ts}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Plot the lamdified values}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[  1.58600000e-18   0.00000000e+00   0.00000000e+00] [  1.00000000e-18
+1.41400000e-13   1.00000000e-08]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Assignment_8_files/Assignment_8_21_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{results-and-discussion}{%
+\section{Results and Discussion}\label{results-and-discussion}}
+
+We have analysed the working of both Sallen-Key (low pass) and Rauch
+(high pass) filters. This has been done by studying the step response as
+well as reponse to sinusoids.
+
+In the former case, we noted the following:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  The low pass filter reponse has an initial value greater than the
+  steady state response, which indicates a quality factor \((Q>1)\).
+\item
+  Similarly, the high pass filter reponse has an initial value lesser
+  than the steady state response, which indicates a quality factor
+  \((Q>1)\).
+\item
+  In the case of a low pass filter, we noticed that higher harmonics get
+  attenuated as compared to lower harmonics. The converse happens in
+  case of a high pass filter.
+\end{enumerate}
+
+On the programming paradigm perspective, we observe that while scipy
+provides a rather good amount of dexterity with symbolic expressions,
+the lack of compatibility with scipy poses a major rethink in problem
+solving approaches. There is certain amount of cross usage aided by
+lambda objects, however, these are costly solutions.
+
+In our case, we use to strength the fact that the transfer functions are
+rational and second order. This helps us extract coefficients and
+pipeline efficiently into the signal processing library of scipy.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+\bibliography{references}
+
+    
+    \end{document}

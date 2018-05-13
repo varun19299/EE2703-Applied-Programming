@@ -1,0 +1,864 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Assignment\_3}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{assignment-3}{%
+\section{Assignment 3}\label{assignment-3}}
+
+\emph{Author: Varun Sundar, EE16B068.}
+
+\hypertarget{abstract}{%
+\subsection{Abstract}\label{abstract}}
+
+We examine fitting of functions with their computed fourier seriers'
+coefficients. This is done for two cases - a continuous periodic
+function , \$\cos{(\cos{({x})})} \$ and a finitely discontinuos periodic
+function \(\exp(x)\). The exponent is discontinuous at the start and end
+of each period. This, as we go on to examine, affects the uniform
+convergence of the fourier series.
+
+\hypertarget{introduction}{%
+\subsection{Introduction}\label{introduction}}
+
+Fourier series of a periodic function with period \(2\pi\) may be
+computed as follows:
+
+\[ a_0 + \sum_{n=1}^{\infty} {a_n*\cos(nx) + b_n*\sin(nx)} \]
+
+where,
+
+\[a_0 = \frac{1}{2\pi} \int_0^{2\pi}f(x)dx\]
+\[a_n = \frac{1}{2\pi} \int_0^{2\pi}f(x)*\cos(nx)dx\]
+\[b_n = \frac{1}{2\pi} \int_0^{2\pi}f(x)*\sin(nx)dx\]
+
+In case of functions which are not inherently periodic in \((0,2\pi)\),
+we may choose to extend their defenitions in a piece-wise manner to
+satisfy the reqiuirement of periodicity.
+
+\textbf{Conventions followed:} 1. We are using Python 3, GCC for C 2.
+Underscore naming vs Camel Case 3. PEP 25 convention style. 4. Importing
+numpy and scipy seperately for brevity of functions.
+
+\hypertarget{question-1}{%
+\subsection{Question 1}\label{question-1}}
+
+We define vectorised implementations for \(\exp(x)\) and
+\(\cos{(\cos{x})}\) over the interval \([0,2\pi)\). The implementations
+are however, valid over real numbers.
+
+We utilise a decorator to force \(\exp(x)\) to be periodic, with the
+same period, by wrapping over values from \([0,2\pi)\). The two
+functions are then plotted.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{k}{def} \PY{n+nf}{make\PYZus{}periodic}\PY{p}{(}\PY{n}{oldfunc}\PY{p}{)}\PY{p}{:}
+            \PY{k}{def} \PY{n+nf}{newfunc}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{n}{oldfunc}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{remainder}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}\PY{p}{)}
+            \PY{k}{return} \PY{n}{newfunc}
+        
+        \PY{n+nd}{@make\PYZus{}periodic}
+        \PY{k}{def} \PY{n+nf}{exp}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+        
+        \PY{n}{exp}\PY{o}{=}\PY{n}{make\PYZus{}periodic}\PY{p}{(}\PY{n}{exp}\PY{p}{)}
+        \PY{k}{def} \PY{n+nf}{cos\PYZus{}cos}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    The two functions are plotted on semi-logy plots (for \(\exp(x)\)) and
+linear plots respectively.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline  
+        
+        \PY{o}{\PYZpc{}}\PY{k}{pylab} inline
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{)}
+        
+        \PY{n}{figure}\PY{p}{,} \PY{n}{axarr} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{,}\PY{n}{which}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{both}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Semi\PYZhy{}Logy Plot of \PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{exp(x)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}\PY{n}{fontweight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Plot of \PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{cos}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{(}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{cos}\PY{l+s+si}{\PYZob{}x\PYZcb{}}\PY{l+s+s1}{)\PYZcb{}\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}\PY{n}{fontweight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+        
+        \PY{n}{x}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{6}\PY{o}{/}\PY{l+m+mf}{0.1}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{x}\PY{o}{=}\PY{n}{x}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}
+        \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{semilogy}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{make\PYZus{}periodic}\PY{p}{(}\PY{n}{exp}\PY{p}{)}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+        \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{cos\PYZus{}cos}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Neaten up plots}
+        \PY{n}{figure}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Populating the interactive namespace from numpy and matplotlib
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/envs/tf\_python3/lib/python3.6/site-packages/IPython/core/magics/pylab.py:160: UserWarning: pylab import has clobbered these variables: ['exp']
+`\%matplotlib` prevents importing * from pylab and numpy
+  "\textbackslash{}n`\%matplotlib` prevents importing * from pylab and numpy"
+/Users/Ankivarun/anaconda3/envs/tf\_python3/lib/python3.6/site-packages/ipykernel\_launcher.py:16: DeprecationWarning: object of type <class 'float'> cannot be safely interpreted as an integer.
+  app.launch\_new\_instance()
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{question-2}{%
+\subsection{Question 2}\label{question-2}}
+
+We now compute the first 51 coefficients via the Fourier Series
+integral. Taken as 25 of \(a\), 25 of \(b\), and one of \(a_0\).
+
+We observe that the sinusoidal components (\(b_n\)) for
+\(\cos{(\cos{(x)})}\) is nearly zero. This makes intutive sense.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{integrate} \PY{k}{as} \PY{n}{integrate}
+         
+         \PY{k}{def} \PY{n+nf}{cos\PYZus{}u}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{k}\PY{p}{,}\PY{n}{f}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} Compute cosine Fourier Components}
+             \PY{k}{return} \PY{n}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{k}\PY{o}{*}\PY{n}{x}\PY{p}{)}
+         \PY{k}{def} \PY{n+nf}{sin\PYZus{}u}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{k}\PY{p}{,}\PY{n}{f}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} Compute sine Fourier Components}
+             \PY{k}{return} \PY{n}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{k}\PY{o}{*}\PY{n}{x}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} For exp (x)}
+         \PY{n}{exp\PYZus{}a0}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{integrate}\PY{o}{.}\PY{n}{quad}\PY{p}{(}\PY{n}{cos\PYZus{}u}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{args}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{exp}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}
+         \PY{n}{exp\PYZus{}a}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{integrate}\PY{o}{.}\PY{n}{quad}\PY{p}{(}\PY{n}{cos\PYZus{}u}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{args}\PY{o}{=}\PY{p}{(}\PY{n}{k}\PY{p}{,}\PY{n}{exp}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{26}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}
+         \PY{n}{exp\PYZus{}b}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{integrate}\PY{o}{.}\PY{n}{quad}\PY{p}{(}\PY{n}{sin\PYZus{}u}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{args}\PY{o}{=}\PY{p}{(}\PY{n}{k}\PY{p}{,}\PY{n}{exp}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{26}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} For cos(cos (x))}
+         \PY{n}{cos\PYZus{}cos\PYZus{}a0} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{integrate}\PY{o}{.}\PY{n}{quad}\PY{p}{(}\PY{n}{cos\PYZus{}u}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{args}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{cos\PYZus{}cos}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}
+         \PY{n}{cos\PYZus{}cos\PYZus{}a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{integrate}\PY{o}{.}\PY{n}{quad}\PY{p}{(}\PY{n}{cos\PYZus{}u}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{args}\PY{o}{=}\PY{p}{(}\PY{n}{k}\PY{p}{,}\PY{n}{cos\PYZus{}cos}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{26}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}
+         \PY{n}{cos\PYZus{}cos\PYZus{}b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{integrate}\PY{o}{.}\PY{n}{quad}\PY{p}{(}\PY{n}{sin\PYZus{}u}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{args}\PY{o}{=}\PY{p}{(}\PY{n}{k}\PY{p}{,}\PY{n}{cos\PYZus{}cos}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{26}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} b\PYZus{}n for cos\PYZus{}cos\PYZus{}b is nearly zero}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{cos\PYZus{}cos\PYZus{}b}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[  2.03564840e-17  -3.81771654e-18   4.39077068e-18  -1.25287777e-16
+  -2.11216429e-16   2.59100523e-16  -3.38779294e-16   1.56616592e-16
+  -3.32333076e-16  -3.58081826e-17   5.24915864e-16  -1.30591326e-16
+  -1.03257532e-16  -5.37731717e-16   2.90315278e-16  -2.34935261e-16
+   4.53371847e-16  -2.29815928e-16  -4.17093578e-16   6.24978298e-16
+  -4.33246633e-16  -3.93069146e-16  -4.30672335e-16  -5.82976222e-16
+   1.28697622e-15]
+
+    \end{Verbatim}
+
+    \hypertarget{question-3}{%
+\subsection{Question 3}\label{question-3}}
+
+We now plot the values of the two coeffecients.
+
+These are taken in the order
+\((a_0,a_1,a_2,...,a_{25},b_1,b_2,...,b_{25})\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{figure}\PY{p}{,} \PY{n}{axarr} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{,}\PY{n}{which}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{both}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Semi\PYZhy{}Logy Plot of Cosine Fourier Coeffs for \PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{exp(x)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}\PY{n}{fontweight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Log\PYZhy{}Logy Plot of Cosine Fourier Coeffs for \PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{exp(x)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}\PY{n}{fontweight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Semi\PYZhy{}Logy Plot of Sine Fourier Coeffs for \PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{exp(x)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}\PY{n}{fontweight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Log\PYZhy{}Logy Plot of Sine Fourier Coeffs for \PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{exp(x)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}\PY{n}{fontweight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}n\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+         
+         \PY{n}{n}\PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{51}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{exp\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{n}{exp\PYZus{}a0}\PY{p}{]}
+         \PY{n}{exp\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{26}\PY{p}{]}\PY{o}{=}\PY{n}{exp\PYZus{}a}
+         \PY{n}{exp\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{26}\PY{p}{:}\PY{l+m+mi}{52}\PY{p}{]}\PY{o}{=}\PY{n}{exp\PYZus{}b}
+         
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{semilogy}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{26}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{exp\PYZus{}list}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{26}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{loglog}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{26}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{exp\PYZus{}list}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{26}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{semilogy}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{exp\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{26}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{o}{.}\PY{n}{loglog}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{exp\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{26}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{figure}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{figure}\PY{p}{,} \PY{n}{axarr} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{,}\PY{n}{which}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{both}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Semi\PYZhy{}Logy Plot of Fourier Coeffs for \PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{cos}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{(}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{cos}\PY{l+s+si}{\PYZob{}x\PYZcb{}}\PY{l+s+s1}{)\PYZcb{}\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}\PY{n}{fontweight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Log\PYZhy{}Log Plot of Fourier Coeffs for \PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{cos}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{(}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{cos}\PY{l+s+si}{\PYZob{}x\PYZcb{}}\PY{l+s+s1}{)\PYZcb{}\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}\PY{n}{fontweight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Semi\PYZhy{}Logy Plot of Sine Fourier Coeffs for \PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{cos}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{(}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{cos}\PY{l+s+si}{\PYZob{}x\PYZcb{}}\PY{l+s+s1}{)\PYZcb{}\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}\PY{n}{fontweight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Log\PYZhy{}Logy Plot of Sine Fourier Coeffs for \PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{cos}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{(}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{cos}\PY{l+s+si}{\PYZob{}x\PYZcb{}}\PY{l+s+s1}{)\PYZcb{}\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}\PY{n}{fontweight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}n\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+         
+         \PY{n}{n}\PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{51}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{cos\PYZus{}cos\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{n}{cos\PYZus{}cos\PYZus{}a0}\PY{p}{]}
+         \PY{n}{cos\PYZus{}cos\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{26}\PY{p}{]}\PY{o}{=}\PY{n}{cos\PYZus{}cos\PYZus{}a}
+         \PY{n}{cos\PYZus{}cos\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{26}\PY{p}{:}\PY{l+m+mi}{52}\PY{p}{]}\PY{o}{=}\PY{n}{cos\PYZus{}cos\PYZus{}b}
+         
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{semilogy}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{26}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{cos\PYZus{}cos\PYZus{}list}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{26}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{loglog}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{26}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{cos\PYZus{}cos\PYZus{}list}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{26}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{semilogy}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{cos\PYZus{}cos\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{26}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{o}{.}\PY{n}{loglog}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{cos\PYZus{}cos\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{26}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{figure}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{figure}\PY{p}{,} \PY{n}{axarr} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{,}\PY{n}{which}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{both}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Semi\PYZhy{}Logy Plot of sine Fourier Coeffs for \PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{cos}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{(}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{cos}\PY{l+s+si}{\PYZob{}x\PYZcb{}}\PY{l+s+s1}{)\PYZcb{}\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}\PY{n}{fontweight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Log\PYZhy{}Log Plot of sine Fourier Coeffs for \PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{cos}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{(}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{cos}\PY{l+s+si}{\PYZob{}x\PYZcb{}}\PY{l+s+s1}{)\PYZcb{}\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}\PY{n}{fontweight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}n\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+        
+        \PY{n}{n}\PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{cos\PYZus{}cos\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{n}{cos\PYZus{}cos\PYZus{}a0}\PY{p}{]}
+        \PY{n}{cos\PYZus{}cos\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{26}\PY{p}{]}\PY{o}{=}\PY{n}{cos\PYZus{}cos\PYZus{}a}
+        \PY{n}{cos\PYZus{}cos\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{26}\PY{p}{:}\PY{l+m+mi}{52}\PY{p}{]}\PY{o}{=}\PY{n}{cos\PYZus{}cos\PYZus{}b}
+        
+        \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{semilogy}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{cos\PYZus{}cos\PYZus{}list}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{26}\PY{p}{:}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{loglog}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{cos\PYZus{}cos\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{26}\PY{p}{:}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{figure}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We notice that in the second case, ie\ldots{}, that of
+\(\cos(\cos(x))\), the sine components are nearly zero, indicating low
+sinusoidal dependence. This in propeties such as \(\cos(\cos(x))\) being
+an odd function.
+
+Also in the second case, the fourier coefficients decay much more
+rapidly than in the case of \(\exp{(x)}\). This can be attributed to the
+fact that owing to discontinuity,\(\exp{(x)}\) requires high frequency
+components towards the end of its period.
+
+Also, we note that the fourier cosine components of \(\cos(\cos(x))\)
+exhibit a linear variation under a semi-log plot, which can be
+attributed to a \(\frac{1}{n}\) dependence for small n, and a
+\(\frac{1}{n^{2}}\) for large n.
+
+    \hypertarget{question-4}{%
+\subsection{Question 4}\label{question-4}}
+
+We perform a least squares estimation of the parameters. Consider a
+linearly spaced out vector \(\vec{x}\) , which are used to sample
+\(f(x)\) at each \(x_i\).
+
+\[ a_0+\sum_n{a_n\cos(nx_i)+b_n\sin(nx_i)} ≈ f(x_i) \]
+
+We turn this into a linear regression problem: \[
+\quad
+\begin{pmatrix} 
+1 & \cos(x_1) & \sin(x_1) & .... & \cos(25x_1) & \sin(25x_1)\\
+1 & \cos(x_2) & \sin(x_2) & .... & \cos(25x_2) & \sin(25x_2)\\
+... & ... & ... & .... & ... & ... \\
+1 & \cos(x_{400}) & \sin(x_{400}) & .... & \cos(25x_{400}) & \sin(25x_{400})
+\end{pmatrix}
+\quad
+\begin{pmatrix} 
+a_0\\
+a_1\\
+b_1\\
+...\\
+a_{25}\\
+b_{25}
+\end{pmatrix}
+=
+\quad
+\begin{pmatrix} 
+f(x_1)\\
+f(x_2)\\
+...\\
+f(x_{400})
+\end{pmatrix}
+\]
+
+We create the matrix on the left side and call it \(A\) . We want to
+solve \(Ac=b\) where \(c\) are the fourier coefficients.
+
+\(L-2\) norm is used to solve for the ``best'' fit solutions. This is
+similar to using the Moore-Penrose Pseudo Inverse to compute the optimal
+solution.
+
+We obtain,
+
+\[ c=(A^{T}A)^{-1}A*b \]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{def} \PY{n+nf}{create\PYZus{}matrices}\PY{p}{(}\PY{n}{f}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{n}{n}\PY{p}{,}\PY{n}{c}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} f is a vectorised implementation}
+            \PY{c+c1}{\PYZsh{} Return (A,b)}
+            \PY{c+c1}{\PYZsh{} n is the number of values}
+            \PY{c+c1}{\PYZsh{} c is the number of coefficients}
+            \PY{n}{b}\PY{o}{=}\PY{n}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+            \PY{n}{A}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{c}\PY{p}{)}\PY{p}{)}
+            \PY{n}{A}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{1}
+            
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{26}\PY{p}{)}\PY{p}{:}
+                \PY{n}{A}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{i}\PY{o}{*}\PY{n}{x}\PY{p}{)}
+                
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{26}\PY{p}{)}\PY{p}{:}
+                \PY{n}{A}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{25}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{i}\PY{o}{*}\PY{n}{x}\PY{p}{)}
+                
+            \PY{k}{return} \PY{p}{(}\PY{n}{A}\PY{p}{,}\PY{n}{b}\PY{p}{)}
+        
+        \PY{n}{x}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,}\PY{n}{num}\PY{o}{=}\PY{l+m+mi}{400}\PY{p}{)}
+        
+        \PY{n}{A\PYZus{}cos\PYZus{}cos}\PY{p}{,}\PY{n}{b\PYZus{}cos\PYZus{}cos}\PY{o}{=}\PY{p}{(}\PY{n}{create\PYZus{}matrices}\PY{p}{(}\PY{n}{cos\PYZus{}cos}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{l+m+mi}{400}\PY{p}{,}\PY{l+m+mi}{51}\PY{p}{)}\PY{p}{)}
+        \PY{n}{A\PYZus{}exp}\PY{p}{,}\PY{n}{b\PYZus{}exp}\PY{o}{=}\PY{p}{(}\PY{n}{create\PYZus{}matrices}\PY{p}{(}\PY{n}{exp}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{l+m+mi}{400}\PY{p}{,}\PY{l+m+mi}{51}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{question-5}{%
+\subsection{Question 5}\label{question-5}}
+
+Here, we plot the fourier coefficients found for both functions via the
+least squares approach. As in the previous case, we have plotted both
+cosine and sine components for both functions sepereately on log-log and
+semi-logy plots.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{linalg} \PY{k}{import} \PY{n}{lstsq}
+        
+        \PY{n}{c\PYZus{}exp}\PY{o}{=}\PY{n}{lstsq}\PY{p}{(}\PY{n}{A\PYZus{}exp}\PY{p}{,}\PY{n}{b\PYZus{}exp}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{c\PYZus{}cos\PYZus{}cos}\PY{o}{=}\PY{n}{lstsq}\PY{p}{(}\PY{n}{A\PYZus{}cos\PYZus{}cos}\PY{p}{,}\PY{n}{b\PYZus{}cos\PYZus{}cos}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Ankivarun/anaconda3/envs/tf\_python3/lib/python3.6/site-packages/scipy/linalg/basic.py:1226: RuntimeWarning: internal gelsd driver lwork query error, required iwork dimension not returned. This is likely the result of LAPACK bug 0038, fixed in LAPACK 3.2.2 (released July 21, 2010). Falling back to 'gelss' driver.
+  warnings.warn(mesg, RuntimeWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{figure}\PY{p}{,} \PY{n}{axarr} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{,}\PY{n}{which}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{both}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Semi\PYZhy{}Logy Plot of Cosine Fourier Coeffs for \PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{exp(x)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}\PY{n}{fontweight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Log\PYZhy{}Logy Plot of Cosine Fourier Coeffs for \PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{exp(x)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}\PY{n}{fontweight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Semi\PYZhy{}Logy Plot of Sine Fourier Coeffs for \PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{exp(x)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}\PY{n}{fontweight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Log\PYZhy{}Logy Plot of Sine Fourier Coeffs for \PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{exp(x)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}\PY{n}{fontweight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}n\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+         
+         \PY{n}{n}\PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{51}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{semilogy}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{26}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{c\PYZus{}exp}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{26}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{go}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{loglog}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{26}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{c\PYZus{}exp}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{26}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{go}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{semilogy}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{c\PYZus{}exp}\PY{p}{[}\PY{l+m+mi}{26}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{go}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{o}{.}\PY{n}{loglog}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{c\PYZus{}exp}\PY{p}{[}\PY{l+m+mi}{26}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{go}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{figure}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{figure}\PY{p}{,} \PY{n}{axarr} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{,}\PY{n}{which}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{both}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Semi\PYZhy{}Logy Plot of Fourier Coeffs for \PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{cos}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{(}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{cos}\PY{l+s+si}{\PYZob{}x\PYZcb{}}\PY{l+s+s1}{)\PYZcb{}\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}\PY{n}{fontweight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Log\PYZhy{}Log Plot of Fourier Coeffs for \PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{cos}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{(}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{cos}\PY{l+s+si}{\PYZob{}x\PYZcb{}}\PY{l+s+s1}{)\PYZcb{}\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}\PY{n}{fontweight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Semi\PYZhy{}Logy Plot of Sine Fourier Coeffs for \PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{cos}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{(}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{cos}\PY{l+s+si}{\PYZob{}x\PYZcb{}}\PY{l+s+s1}{)\PYZcb{}\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}\PY{n}{fontweight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Log\PYZhy{}Logy Plot of Sine Fourier Coeffs for \PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{cos}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{(}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{cos}\PY{l+s+si}{\PYZob{}x\PYZcb{}}\PY{l+s+s1}{)\PYZcb{}\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}\PY{n}{fontweight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}n\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+         
+         \PY{n}{n}\PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{51}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{semilogy}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{26}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{cos\PYZus{}cos\PYZus{}list}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{26}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{go}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{loglog}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{26}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{cos\PYZus{}cos\PYZus{}list}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{26}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{go}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{semilogy}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{cos\PYZus{}cos\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{26}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{go}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{o}{.}\PY{n}{loglog}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{cos\PYZus{}cos\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{26}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{go}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{figure}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{question-6}{%
+\subsection{Question 6}\label{question-6}}
+
+We now compute the arg-max error (absolute error per argument) obtained
+by the two methods; a least square estimation as well as the direct
+evaluation of Fourier coefficients.
+
+We note that there is very little discrepancy in case of
+\(\cos{\cos{(x)}}\) , where as there is substantial discrepancy in case
+of \(\exp{(x)}\).
+
+Notice that, fourier coefficients are in fact a \(L-2\) norm best fit
+for a given continuous fucntion. However, in case of discontinuous
+functions, this doesnot hold true (except for dc values).
+
+This is precisely what we observe. The only closely correlated
+coefficients for \(\exp(x)\) are the zero frequency terms.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{def} \PY{n+nf}{error} \PY{p}{(}\PY{n}{u}\PY{p}{,}\PY{n}{v}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{amax}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{u}\PY{o}{\PYZhy{}}\PY{n}{v}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{error}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} 1
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Argmax Error on fourier coefficients for \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{cos}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{cos}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{(x)\PYZcb{}\PYZcb{}\PYZdl{} }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{error}\PY{p}{(}\PY{n}{c\PYZus{}cos\PYZus{}cos}\PY{p}{,}\PY{n}{cos\PYZus{}cos\PYZus{}list}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Error on fourier coefficients for \$\textbackslash{}cos\{\textbackslash{}cos\{(x)\}\}\$ 	 0.114903484932
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{c\PYZus{}exp}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{exp\PYZus{}list}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Argmax Error on fourier coefficients for \PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{exp}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{(x)\PYZcb{}\PYZdl{} }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{error}\PY{p}{(}\PY{n}{c\PYZus{}exp}\PY{p}{,}\PY{n}{exp\PYZus{}list}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[ 85.08336415  85.09973932  34.05954604  17.04614846  10.04063202
+   6.57636589   4.63096745   3.43543196   2.65019887   2.1075584
+   1.71724946   1.42729634   1.20609433   1.03354575   0.89638307
+   0.7855653    0.69476136   0.61943178   0.55625359   0.50274942
+   0.45704202   0.41768807   0.38356317   0.35378095   0.32763509
+   0.30455719 -85.06347325 -68.04655959 -51.02964576 -40.0174603
+ -32.70049212 -27.56819608 -23.79414167 -20.91143306 -18.64158912
+ -16.80977625 -15.3012562  -14.03783919 -12.96450863 -12.0414791
+ -11.23929279 -10.53568698  -9.91353182  -9.35943648  -8.86278475
+  -8.41505361  -8.00932282  -7.63991583  -7.30213297  -6.99205031
+  -6.70636624]
+[85.066989018136852, 42.53349450906844, 17.013397803627385, 8.5066989018137029, 5.0039405304786335, 3.2718072699283165, 2.2991078113009729, 1.7013397803627464, 1.3087229079713398, 1.0374023050992371, 0.8422474160211324, 0.69727040178792832, 0.58666888978010157, 0.50039405304776952, 0.43181212699556937, 0.37640260627495603, 0.33099995726903297, 0.29333444489015831, 0.2617445815942821, 0.23499168237057011, 0.2121371297210754, 0.19245925117224552, 0.17539585364562132, 0.16050375286440094, 0.14742979032591316, 0.13588975881485663, -42.533494509068412, -34.026795607254726, -25.52009670544107, -20.015762121914534, -16.359036349641709, -13.794646867805954, -11.909378462539177, -10.469783263770685, -9.3366207458931019, -8.4224741602115945, -7.669974419668069, -7.0400266773630751, -6.5051226896222101, -6.0453697779386442, -5.6460390941241325, -5.2959993163042576, -4.9866855631321894, -4.7114024686968392, -4.4648419650403079, -4.2427425944207835, -4.0416442746174495, -3.858708780204247, -3.691586315881433, -3.5383149678253965, -3.3972439703728678]
+Argmax Error on fourier coefficients for \$\textbackslash{}exp\{(x)\}\$ 	 42.5662448126
+
+    \end{Verbatim}
+
+    \hypertarget{question-7}{%
+\subsection{Question 7}\label{question-7}}
+
+We now plot the function values obtained from the linear regression.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{b\PYZus{}eval\PYZus{}exp}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{A\PYZus{}exp}\PY{p}{,}\PY{n}{c\PYZus{}exp}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+         \PY{n}{b\PYZus{}eval\PYZus{}cos\PYZus{}cos}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{A\PYZus{}cos\PYZus{}cos}\PY{p}{,}\PY{n}{c\PYZus{}cos\PYZus{}cos}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{b\PYZus{}eval\PYZus{}exp}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{b\PYZus{}eval\PYZus{}cos\PYZus{}cos}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+400
+400
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{figure}\PY{p}{,} \PY{n}{axarr} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{,}\PY{n}{which}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{both}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SPlot of \PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{exp(x)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}\PY{n}{fontweight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Plot of \PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{cos}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{(}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{cos(}\PY{l+s+si}{\PYZob{}x\PYZcb{}}\PY{l+s+s1}{))\PYZcb{}\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,}\PY{n}{fontweight}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+         
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{semilogy}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{make\PYZus{}periodic}\PY{p}{(}\PY{n}{exp}\PY{p}{)}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{semilogy}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{b\PYZus{}eval\PYZus{}exp}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{cos\PYZus{}cos}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{semilogy}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{b\PYZus{}eval\PYZus{}cos\PYZus{}cos}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Neaten up plots}
+         \PY{n}{figure}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actual function}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Estimated by Regression}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actual function}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Estimated by Regression}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Notice that the function \(\exp({x})\) has poor convergence with fourier
+series.This is due to the discontinuity of the piecewise function of
+\(\exp({x})\), given that \(\exp({x})\) is neither periodic on any
+subset of real numbers, nor our interval of speciifcation. Hence, there
+are discontinuities at \(0\) and \(2\pi\).
+
+Hence, uniform convergence doesnot occur. However, since we have
+considered a finite interval for the piecewise function, there is \(L2\)
+convergence, ie\ldots{}
+
+\[ \lim_{m\to\infty} ||\exp{(x)}-E_m(x)||^{2} =0 \] where,
+\[E_m(x) = a_0+ \sum_{n=1}^{m} {a_n \cos{(nx)}+b_n \sin{(nx)}}\]
+
+    \hypertarget{results-and-discussion}{%
+\subsection{Results and Discussion}\label{results-and-discussion}}
+
+We have examined the case of approximating functions using their fourier
+coefficients upto a thresholded number. Whilst doing so, we perform the
+same for two cases, one a continous function, and the other a function
+with finite discontinuties.
+
+The methods adopted in finding the respective fourier coefficients have
+been direct evaluation of the fourier series formula, as well as a
+\(L-2\) norm best fit. We notice close matching of the two methods in
+case of \(\cos(\cos(x))\) while, larger discrepancy in \(\exp(x)\).
+
+Besides this, we also highlight the fact of non-uniform convergence of
+the fourier series in case of finitely discontinuous functions.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
